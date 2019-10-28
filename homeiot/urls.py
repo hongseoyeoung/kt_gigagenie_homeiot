@@ -20,4 +20,7 @@ import home.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home.views.home, name="home"),
+    path('sidebar', home.views.sidebar, name="sidebar"),
+    path('current', home.views.current, name="current"),
+    path('ajax', home.views.ajax, name="ajax"),
 ]

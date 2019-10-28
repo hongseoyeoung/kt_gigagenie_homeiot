@@ -1,0 +1,101 @@
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+    <!--<meta http-equiv="refresh" content="5">-->
+</head>
+<body onload="init()" style="padding: 8px 15px;">
+    <div class="container-fluid">
+        <div style="margin-left: 100px; margin-top:20px; margin-bottom: 10px;">
+            <h1 style="size:5em">실시간 생체 데이터 입니다.</h1>
+        </div>
+        <table class="table table-hover" style="width: 50%; margin-left: 100px">
+            <tr>
+                <th>심박수</th>
+                <td id="hr">{{hr}}</td>
+            </tr>
+            <tr>
+                <th>호흡수</th>
+                <td id="rr">{{rr}}</td>
+            </tr>
+            <tr>
+                <th>심박출량</th>
+                <td id="sv">{{sv}}</td>
+            </tr>
+            <tr>
+                <th>심박변이도</th>
+                <td id="hrv">{{hrv}}</td>
+            </tr>
+            <tr>
+                <th>진동 세기</th>
+                <td id="ss">{{ss}}</td>
+            </tr>
+            <tr>
+                <th>상태</th>
+                <td id="state">{{state}}</td>
+            </tr>
+        </table>
+    </div>
+
+    
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://svcapi.gigagenie.ai/sdk/v1.0/js/gigagenie.js"></script>
+    
+    <script type="text/javascript">
+    var options={};
+    function init(){
+        options={};
+        options.apikey="RTUwMDI5MzN8R0JPWERFVk18MTU1ODQxODIyNjk0Mg==";
+        options.keytype="GBOXDEVM";
+        gigagenie.init(options, function(result_cd, result_msg, extra){
+            if(result_cd === 200){
+                var options={};
+                
+                gigagenie.voice.sendTTS(options, function(result_cd, result_msg, extra){
+                    if(result_cd === 200){
+
+                    } else {
+
+                    };
+                    
+                });
+            };
+        });
+    }
+    
+    setInterval(function(){
+        $.ajax({
+            url : "{% url 'ajax' %}",
+            dataType: 'json',
+            success: function(data) {
+                $('#hr').html(data['hr']);
+                $('#rr').html(data['rr']);
+                $('#sv').html(data['sv']);
+                $('#hrv').html(data['hrv']);
+                $('#ss').html(data['ss']);
+                $('#state').html(data['state']);
+                var options={};
+                options.ttstext="현재 심박수는 "+ data['hr'] +"입니다.";
+                gigagenie.voice.sendTTS(options, function(result_cd, result_msg, extra){
+                    if(result_cd === 200){
+
+                    } else {
+
+                    };
+                });
+            },
+            error: function(reuqest, status, error){
+                alert("ajax통신실패...");
+                alert(error);
+                alert(request);
+                window.location.replace("{% url 'current' %}")
+            },
+        })
+    }, 5000);
+
+    </script>
+</body>
