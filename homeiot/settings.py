@@ -41,6 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',
+    'lastsleep.apps.LastsleepConfig',
+    'linked.apps.LinkedConfig',
+    'myinfo.apps.MyinfoConfig',
+    'realtime.apps.RealtimeConfig',
+    'statistic.apps.StatisticConfig',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +63,7 @@ ROOT_URLCONF = 'homeiot.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['homeiot/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

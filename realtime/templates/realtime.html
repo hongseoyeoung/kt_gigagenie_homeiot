@@ -54,10 +54,11 @@
         gigagenie.init(options, function(result_cd, result_msg, extra){
             if(result_cd === 200){
                 var options={};
-                
+                setVoiceFilter();
+                getVoiceText();
                 gigagenie.voice.sendTTS(options, function(result_cd, result_msg, extra){
                     if(result_cd === 200){
-
+                        
                     } else {
 
                     };
@@ -78,24 +79,63 @@
                 $('#hrv').html(data['hrv']);
                 $('#ss').html(data['ss']);
                 $('#state').html(data['state']);
-                var options={};
-                options.ttstext="현재 심박수는 "+ data['hr'] +"입니다.";
-                gigagenie.voice.sendTTS(options, function(result_cd, result_msg, extra){
-                    if(result_cd === 200){
-
-                    } else {
-
-                    };
-                });
             },
             error: function(reuqest, status, error){
                 alert("ajax통신실패...");
                 alert(error);
                 alert(request);
-                window.location.replace("{% url 'current' %}")
+                window.location.replace("{% url 'realtime' %}")
             },
         })
     }, 5000);
 
+    function setVoiceFilter() {
+		options = {};
+		options.keyword = [ "심박수", "호흡수", "심박출량", "심박변이도" ];
+		gigagenie.voice.setVoiceFilter(options, function(result_cd, result_msg, extra) {
+			if (result_cd === 200) {
+			}
+		});
+	};
+
+    gigagenie.voice.onVoiceFilterMsg = function(message) {
+        if(message.indexOf("심박수") >= 0){
+            var msg = "현재 심박수는 " + $('#hr').text() + "입니다.";
+            sendTTS(msg);
+        }
+        else if(message.indexOf("호흡수") >= 0){
+            var msg = "현재 호흡수는 " + $('#rr').text() + "입니다.";
+            sendTTS(msg);
+        }
+        else if(message.indexOf("심박출량") >= 0){
+            var msg = "현재 심박출량은 " + $('#sv').text() + "입니다.";
+            sendTTS(msg);
+        }
+        else if(message.indexOf("심박변이도") >= 0){
+            var msg = "현재 심박변이도는 " + $('#hrv').text() + "입니다.";
+            sendTTS(msg);
+        };
+	};
+
+    function getVoiceText() {
+		options = {};
+		options.voicemsg = "아무말이나해주십시오.";
+		gigagenie.voice.getVoiceText(options, function(result_cd, result_msg, extra) {
+			alert("음성인식 결과 : " + extra.voicetext);
+		});
+	};
+
+    function sendTTS(msg){
+        var options={};
+            options.ttstext=msg;
+            gigagenie.voice.sendTTS(options, function(result_cd, result_msg, extra){
+                if(result_cd === 200){
+
+                }else{
+
+                };
+                
+            });
+    }
     </script>
 </body>

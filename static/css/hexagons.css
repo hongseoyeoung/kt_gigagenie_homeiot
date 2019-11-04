@@ -27,6 +27,7 @@
   width:98.5%;
   padding-bottom: 113.738%; /* =  width / sin(60) */
   margin:0 2%;
+  visibility: hidden;
   overflow: hidden;
   outline:1px solid transparent; /* fix for jagged edges in FF on hover transition */
   -webkit-transform: rotate3d(0,0,1,-60deg) skewY(30deg);
@@ -39,7 +40,6 @@
   outline:1px solid transparent; /* fix for jagged edges in FF on hover transition */
 }
 .hexLink {
-    background-color: rgba(182, 255, 255, 0.5);
     display:block;
     width: 100%;
     height: 100%;
@@ -86,8 +86,16 @@
   bottom: 0;
   left: 45%;
   width: 10%;
+  
   text-align: center;
-  border-bottom: 1px solid #fff;
+}
+.hex h2 {
+  width: 100%;
+  bottom: 10%;
+  font-size: 1.3em;
+  text-align: center;
+  color : #fff;
+  font-weight: 600;
 }
 .hex p {
   top: 50%;
@@ -109,25 +117,27 @@
 /*** HEXAGON SIZING AND EVEN ROW INDENTATION *****************************************************************/
 @media (min-width:1201px) { /* <- 5-4  hexagons per row */
   #hexGrid{
-    padding-bottom: 4.4%
+    padding-top: 0.75%;
+    padding-bottom: 6.75%
   }
   .hex {
-    width: 20%; /* = 100 / 5 */
+    width: 19%; /* = 100 / 5 */
   }
   .hex:nth-child(9n+6){ /* first hexagon of even rows */
-    margin-left:10%;  /* = width of .hex / 2  to indent even rows */
+    margin-left:9.5%;  /* = width of .hex / 2  to indent even rows */
   }
 }
 
 @media (max-width: 1200px) and (min-width:901px) { /* <- 4-3  hexagons per row */
   #hexGrid{
-    padding-bottom: 4.4%
+    padding-top: 0.75%;
+    padding-bottom: 6.75%
   }
   .hex {
-    width: 20%; /* = 100 / 5 */
+    width: 19%; /* = 100 / 5 */
   }
   .hex:nth-child(9n+6){ /* first hexagon of even rows */
-    margin-left:10%;  /* = width of .hex / 2  to indent even rows */
+    margin-left:9.5%;  /* = width of .hex / 2  to indent even rows */
   }
 }
 

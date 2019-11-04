@@ -1,0 +1,77 @@
+{% extends 'sidebar.html' %}
+
+{% block contents %}
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+</head>
+<body style="padding: 8px 15px; background: white">
+
+    <h1>수면 분석 화면</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="col-md-4">
+                <h3>당뇨 확률은?</h3>
+            </div>
+        </div>  
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script>
+        new Chart(document.getElementById("myChart"),{
+            "type":"radar",
+            "data":
+            {
+                "labels":["심박수","호흡수","심박출량","심박변이도","SDNN","pNN50","RMSSD"],
+                "datasets":[
+                    {
+                        "label":"회원님의 생체 데이터",
+                        "data":[65,59,90,81,56,55,40],
+                        "fill":true,
+                        "backgroundColor":"rgba(255, 99, 132, 0.2)",
+                        "borderColor":"rgb(255, 99, 132)",
+                        "pointBackgroundColor":"rgb(255, 99, 132)",
+                        "pointBorderColor":"#fff",
+                        "pointHoverBackgroundColor":"#fff",
+                        "pointHoverBorderColor":"rgb(255, 99, 132)"
+                    },
+                    {
+                        "label":"정상 생체 데이터",
+                        "data":[70,70,70,70,70,70,70],
+                        "fill":true,
+                        "backgroundColor":"rgba(54, 162, 235, 0.2)",
+                        "borderColor":"rgb(54, 162, 235)",
+                        "pointBackgroundColor":"rgb(54, 162, 235)",
+                        "pointBorderColor":"#fff",
+                        "pointHoverBackgroundColor":"#fff",
+                        "pointHoverBorderColor":"rgb(54, 162, 235)"
+                    }
+                ]
+            },
+            "options":{
+                "elements":{
+                    "line":{
+                        "tension":0,
+                        "borderWidth":3
+                    }
+                },
+                scale: {
+                    angleLines: {
+                        display: false
+                    },
+                    ticks: {
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                }
+            }
+        });
+</script>
+</body>
+
+
+{% endblock %}

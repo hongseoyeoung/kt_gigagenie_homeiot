@@ -74,7 +74,7 @@
 .hex h1 {
   bottom: 50%;
   padding-top:50%;
-  font-size: 1.7em;
+  font-size: 1.5em;
   z-index: 1;
   -webkit-transform:translate3d(0,-100%,0);
       -ms-transform:translate3d(0,-100%,0);
@@ -92,7 +92,7 @@
 .hex h2 {
   width: 100%;
   bottom: 10%;
-  font-size: 1.5em;
+  font-size: 1.3em;
   text-align: center;
   color : #fff;
   font-weight: 600;
