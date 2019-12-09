@@ -1,0 +1,171 @@
+{% extends 'sidebar.html' %}
+
+{% block contents %}
+
+{% load staticfiles %}
+<head>
+  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-responsiveGallery.css' %}">
+	<style type="text/css">
+		html{
+			background-color: #fff;
+		}
+		.w-gallery{
+			margin-top: 10px;
+		}
+    h1 {
+      font-size: 2em;
+    }
+    .contents {
+      padding: 10px 10px;
+    }
+	</style>
+</head>
+<body>
+
+<div class="w-gallery" >
+  <section id="responsiveGallery-container" class="responsiveGallery-container" >
+   <a class="responsiveGallery-btn responsiveGallery-btn_prev" href="javascript:void(0);"></a> 
+   <a class="responsiveGallery-btn responsiveGallery-btn_next" href="javascript:void(0);"></a>
+    <ul class="responsiveGallery-wrapper" style="height: 95%;">
+      <li class="responsiveGallery-item"> 
+        <div class="responsivGallery-link">
+          <div class="contents">
+            <h1>4. 심박출량</h1>
+          </div>
+        </div>
+        <div class="w-responsivGallery-info">
+          <h2 class="responsivGallery-name">심박출량</h2>
+          <h3 class="responsivGallery-position"></h3>
+        </div>
+      </li>
+      <li class="responsiveGallery-item"> 
+        <div class="responsivGallery-link">
+          <div class="contents">
+            <h1>5. 심박 변이도</h1>
+          </div>
+        </div>
+        <div class="w-responsivGallery-info">
+          <h2 class="responsivGallery-name">심박 변이도</h2>
+          <h3 class="responsivGallery-position"></h3>
+        </div>
+      </li>
+      <li class="responsiveGallery-item"> 
+        <div class="responsivGallery-link">
+          <div class="contents">
+            <h1>1. 생체 정보 요약</h1>
+            <br>
+            <table class="table table-hover">
+                <tr>
+                    <th>심박수 평균</th>
+                    <td id="hr">{{hr_mean}}</td>
+                </tr>
+                <tr>
+                    <th>호흡수 평균</th>
+                    <td id="rr">{{rr_mean}}</td>
+                </tr>
+                <tr>
+                    <th>심박출량 평균</th>
+                    <td id="sv">{{sv_mean}}</td>
+                </tr>
+                <tr>
+                    <th>심박변이도 평균</th>
+                    <td id="hrv">{{hrv_mean}}</td>
+                </tr>
+            </table>
+          </div>
+        </div>
+        <div class="w-responsivGallery-info">
+          <h2 class="responsivGallery-name">생체 정보 요약</h2>
+          <h3 class="responsivGallery-position"></h3>
+        </div>
+      </li>
+      <li class="responsiveGallery-item"> 
+        <div class="responsivGallery-link">
+          <div class="contents">
+            <h1>2. 심박수</h1>
+            <div class="row"> 
+              <div class="col-md-8">
+                <canvas id="myChart" width="90%" height="40%sour"></canvas>
+              </div>
+              <div class="col-md-4"> 
+                <p>심박수 평균은 ~~~이고
+                  어쩌고 저쩌고 블라블라
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-responsivGallery-info">
+          <h2 class="responsivGallery-name"> 심박수</h2>
+          <h3 class="responsivGallery-position"></h3>
+        </div>
+      </li>
+      <li class="responsiveGallery-item"> 
+        <div class="responsivGallery-link">
+          <div class="contents">
+            <h1>3. 호흡수</h1>
+          </div>
+        </div>
+        <div class="w-responsivGallery-info">
+          <h2 class="responsivGallery-name">호흡수</h2>
+          <h3 class="responsivGallery-position"></h3>
+        </div>
+      </li>
+    </ul>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type="text/javascript" src="{% static 'js/modernizr.custom.js' %}"></script>
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="{% static 'js/jquery.responsiveGallery.js' %}"></script>
+<script type="text/javascript">
+  $('.responsiveGallery-wrapper').responsiveGallery({
+    animatDuration: 400, 
+    $btn_prev: $('.responsiveGallery-btn_prev'),
+    $btn_next: $('.responsiveGallery-btn_next')
+  });
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); 
+    ga.type = 'text/javascript'; 
+    ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; 
+    s.parentNode.insertBefore(ga, s);
+  })();
+
+  var ctx = document.getElementById('myChart');
+        var data = {{hr_hour}};
+        var labels = {{hr_labels}};
+        
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '심박수',
+                    pointRadius: 0,
+                    fill : 'false',
+                    lineTension: 0,
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: data
+                }]
+            },
+            options: {
+
+            }
+        });
+
+
+</script>
+</body>
+
+{% endblock %}

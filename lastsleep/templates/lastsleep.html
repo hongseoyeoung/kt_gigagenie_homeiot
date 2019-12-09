@@ -1,76 +1,250 @@
 {% extends 'sidebar.html' %}
 
 {% block contents %}
+
+
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+    <style>
+        .col-md-4 {
+            padding: 15px 15px;
+        }
+        a:link{
+            color:black; text-decoration: none;
+        }
+        a:visited{
+            color: black; text-decoration: none;
+        }
+        a:hover{
+            color:black;text-decoration: none;
+        }
+    </style>
 </head>
-<body style="padding: 8px 15px; background: white">
-
-    <h1>수면 분석 화면</h1>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-8">
-                <canvas id="myChart"></canvas>
+<body style="padding: 8px 15px;">
+    <div class="container-fluid" >
+        <div class="row" style="height:90%">
+            <div class="col-md-4" >
+                <a href="{% url 'detail_bio' %}">
+                <div class="card" style="height:100%;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="float:left">생체 정보</h5>
+                            <h6 class="cart-subtitle mb-2 text-muted" style="float:right">상세 보기></h6>
+                        
+                        <br><hr>
+                        <canvas id="myChart" width="90%" height="60%"></canvas>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>심박수 평균</th>
+                                <td id="hr">{{hr_mean}}</td>
+                            </tr>
+                            <tr>
+                                <th>호흡수 평균</th>
+                                <td id="rr">{{rr_mean}}</td>
+                            </tr>
+                            <tr>
+                                <th>심박출량 평균</th>
+                                <td id="sv">{{sv_mean}}</td>
+                            </tr>
+                            <tr>
+                                <th>심박변이도 평균</th>
+                                <td id="hrv">{{hrv_mean}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                </a>
             </div>
             <div class="col-md-4">
-                <h3>당뇨 확률은?</h3>
+                <div class="card" style="height:100%;">
+                    <div class="card-body">
+                        <h5 class="card-title" style="float:left">수면 분석</h5>
+                        <a href="{% url 'detail_sleep' %}">
+                            <h6 class="cart-subtitle mb-2 text-muted" style="float:right">상세 보기></h6>
+                        </a>
+                        <br><hr>
+                        <canvas id="myChart2" width="90%" height="60%"></canvas>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>총 수면 시간</th>
+                                <td>7시간 32분</td>
+                            </tr>
+                            <tr>
+                                <th>무호흡 시간</th>
+                                <td>1시간 6분</td>
+                            </tr>
+                            <tr>
+                                <th>숙면 시간</th>
+                                <td>6시간 26분</td>
+                            </tr>
+                            <tr>
+                                <th>무호흡 비율</th>
+                                <td>14.32%</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>  
-    </div>
-
+            <div class="col-md-4">
+                <div class="card" style="height:100%">
+                    <div class="card-body">
+                        <h5 class="card-title" style="float:left">질병 정보</h5>
+                        <a href="{% url 'detail_disease' %}">
+                            <h6 class="cart-subtitle mb-2 text-muted" style="float:right">상세 보기></h6>
+                        </a>
+                        <br><hr>
+                        <canvas id="myChart3" width="90%" height="60%"></canvas>
+                        <table class="table table-hover">
+                            <tr>
+                                <th>당뇨 추세</th>
+                                <td>10%</td>
+                            </tr>
+                            <tr>
+                                <th>부정맥 추세</th>
+                                <td>32%</td>
+                            </tr>
+                            <tr>
+                                <th>고혈압 추세</th>
+                                <td>3%</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>   
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript" src="https://svcapi.gigagenie.ai/sdk/v1.0/js/gigagenie.js"></script>
     <script>
-        new Chart(document.getElementById("myChart"),{
-            "type":"radar",
-            "data":
-            {
-                "labels":["심박수","호흡수","심박출량","심박변이도","SDNN","pNN50","RMSSD"],
-                "datasets":[
-                    {
-                        "label":"회원님의 생체 데이터",
-                        "data":[65,59,90,81,56,55,40],
-                        "fill":true,
-                        "backgroundColor":"rgba(255, 99, 132, 0.2)",
-                        "borderColor":"rgb(255, 99, 132)",
-                        "pointBackgroundColor":"rgb(255, 99, 132)",
-                        "pointBorderColor":"#fff",
-                        "pointHoverBackgroundColor":"#fff",
-                        "pointHoverBorderColor":"rgb(255, 99, 132)"
-                    },
-                    {
-                        "label":"정상 생체 데이터",
-                        "data":[70,70,70,70,70,70,70],
-                        "fill":true,
-                        "backgroundColor":"rgba(54, 162, 235, 0.2)",
-                        "borderColor":"rgb(54, 162, 235)",
-                        "pointBackgroundColor":"rgb(54, 162, 235)",
-                        "pointBorderColor":"#fff",
-                        "pointHoverBackgroundColor":"#fff",
-                        "pointHoverBorderColor":"rgb(54, 162, 235)"
-                    }
-                ]
+        var ctx = document.getElementById('myChart');
+        var data = {{hr_hour}};
+        var labels = {{hr_labels}};
+        
+        var myLineChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '심박수',
+                    pointRadius: 0,
+                    fill : 'false',
+                    lineTension: 0,
+                    borderColor: 'rgb(255, 99, 132)',
+                    data: data
+                }]
             },
-            "options":{
-                "elements":{
-                    "line":{
-                        "tension":0,
-                        "borderWidth":3
-                    }
+            options: {
+
+            }
+        });
+
+        var ctx2 = document.getElementById('myChart2');
+        var ylabels = ['', '빈 침대', '깨어남', '숙면', '무호흡', ''].reverse();
+        var xlabels = [22, 23, 24, 1, 2, 3, 4, 5, 6, 7, 8];
+        var myLineChart2 = new Chart(ctx2, {
+            type: 'line',
+            data: {
+                xLabels: xlabels,
+                yLabels: ylabels,
+                datasets: [
+                {
+                    label: '무호흡',
+                    pointRadius: 0,
+                    fill: true,
+                    lineTension: 0,
+                    borderColor: '#FAED7D',
+                    backgroundColor: '#FAED7D',
+                    data: ['빈침대', '빈침대', '무호흡', '무호흡', '빈침대', '빈침대', '무호흡', '무호흡', '빈침대', '빈침대', '빈침대']
                 },
-                scale: {
-                    angleLines: {
-                        display: false
-                    },
-                    ticks: {
-                        suggestedMin: 0,
-                        suggestedMax: 100
-                    }
+                {
+                    label: '숙면',
+                    pointRadius: 0,
+                    fill: true,
+                    lineTension: 0,
+                    borderColor: '#4374D9',
+                    backgroundColor: '#4374D9',
+                    data: ['빈침대', '숙면', '숙면', '숙면', '숙면', '숙면', '숙면', '숙면', '숙면', '숙면', '빈침대']
+                },
+                {
+                    label: '깨어남',
+                    pointRadius: 0,
+                    fill: true,
+                    lineTension: 0,
+                    borderColor: '#FFBB00',
+                    backgroundColor: '#FFBB00',
+                    data: ['깨어남', '깨어남', '빈침대', '빈침대', '빈침대', '빈침대', '빈침대', '빈침대', '빈침대', '깨어남', '깨어남']
+                }
+                ]
+                
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: '수면 무호흡 차트'
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: '시간'
+                        }
+                    }],
+                    yAxes: [{
+                        type: 'category',
+                        position: 'left',
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: '수면 상태'
+                        },
+                        ticks: {
+                            reverse: false
+                        }
+                    }]
                 }
             }
         });
-</script>
+
+        var ctx3 = document.getElementById('myChart3');
+        var bio_data = [{{hr_mean}},{{rr_mean}},{{sv_mean}},{{hrv_mean}},{{sdnn}},{{pnn50}},{{rmssd}}];
+        var bio_data_avg = [50,10,60,60,60,60,60];
+        var myLineChart3 = new Chart(ctx3, {
+            type: 'radar',
+            data: {
+				labels: ['심박수', '호흡수', '심박출량', '심박 변이도', 'SDNN', 'pNN50', 'RMSSD'],
+				datasets: [{
+					label: '자신의 평균',
+					backgroundColor: 'rgba(255, 99, 132, 0.2)',
+					borderColor:'rgb(255, 99, 132)',
+					pointBackgroundColor: 'rgb(255, 99, 132)',
+					data: bio_data
+				}, {
+					label: '50대 남자 평균 수치',
+					backgroundColor: "rgba(54, 162, 235, 0.2)",
+					borderColor: 'rgb(54, 162, 235)',
+					pointBackgroundColor: 'rgb(54, 162, 235)',
+					data: bio_data_avg
+				}]
+			},
+			options: {
+				legend: {
+					position: 'top',
+				},
+				title: {
+					display: true,
+					text: 'Chart.js Radar Chart'
+				},
+				scale: {
+					ticks: {
+						beginAtZero: true
+					}
+				}
+			}
+        });
+        </script>
 </body>
 
 

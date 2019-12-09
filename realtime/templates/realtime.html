@@ -119,7 +119,7 @@
 
     function getVoiceText() {
 		options = {};
-		options.voicemsg = "아무말이나해주십시오.";
+		
 		gigagenie.voice.getVoiceText(options, function(result_cd, result_msg, extra) {
 			alert("음성인식 결과 : " + extra.voicetext);
 		});

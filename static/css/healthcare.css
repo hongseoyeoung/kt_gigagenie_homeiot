@@ -1,7 +1,6 @@
 .sidebar {
   width: 280px;
   background-color: #4e769e;
-  z-index: 9999;
   position: fixed;
   bottom: 0;
   top: 0;
@@ -9,36 +8,47 @@
   overflow: hidden;
 }
 
-button {
-  outline: none;
+#sidebar {
+  padding-top: 56px;
+  font-size: 14px; 
+  z-index: 100; 
+  -webkit-transform: translate3d(-220px,0,0);
+  -moz-transform: translate3d(-220px,0,0);
+  transform: translate3d(-220px,0,0);
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -ms-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
 }
-
-button .sidebar-btn {
-  color: #fff;
-  font-weight: bold;
+  
+html.open #sidebar { 
+  overflow-y: auto;
+  -webkit-transform: translate3d(0,0,0);
+  -moz-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -ms-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
 }
-
-.sidebar > .sidebar-content {
-  position: absolute;
-  top: 20px;
-  left: 90px;
-  color: #fff;
-}
-
-.sidebar button {
-  background-color: #222;
+  
+#sidebar-toggle { 
   display: block;
-  position: absolute;
-  top: 117px;
-  left: 270px;
-  width: 70px;
-  height: 38px;
-  line-height: 38px;
+  position: fixed; 
+  right: 5px;
+  bottom: 10px; 
+  width: 50px;
+  height: 50px; 
+  line-height: 55px;
   text-align: center;
-  margin: 0;
-  padding: 0;
-  border: none;
+  color: #555;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  opacity: 0.9; 
+  box-shadow: 0 0 10px #aaa;
+  z-index: 101;
 }
-
 
 

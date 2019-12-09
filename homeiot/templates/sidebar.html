@@ -3,23 +3,25 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/healthcare.css'%}">
 </head>
-<body>
+<body style="padding: 64px 15px 8px 15px;">
+    <nav class="navbar fixed-top navbar-light bg-light">
+        <div class="navbar-brand" href="#">지난 수면 분석</div>
+    </nav>
     <div id="sidebar" class="sidebar">
-        <div class="sidebar-content">
-            <a href="#" class="closebtn" onclick='closeNav()'>x</a>
-            <a href="">about</a>
-            <a href="">about</a>
-            <a href="">about</a>
-            <a href="">about</a>
-            <a href="">about</a>
+        <div>
+            <a href="">about</a><br>
+            <a href="">about</a><br>
+            <a href="">about</a><br>
+            <a href="">about</a><br>
+            <a href="">about</a><br>
         </div>
-        <button><span class="sidebar-btn">OPEN</span></button>
+        <div id="sidebar-toggle">오픈</div>
     </div>
-
-
-    {% block contents %}
-    {% endblock %}
-
+    
+    <div style="padding-left: 60px;">   
+        {% block contents %}
+        {% endblock %}
+    </div>
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -43,6 +45,10 @@
                     $sidebarButton.find('span').text('OPEN');
                 };
             });
+        });
+
+        $("#sidebar-toggle").click(function(){
+            $("html").toggleClass("open");
         });
     </script>
 </body>
