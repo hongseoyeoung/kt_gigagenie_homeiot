@@ -1,157 +1,41 @@
 {% load staticfiles %}
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/healthcare.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/hexagons.css' %}">
-    <link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
-    <style>
-        .background_img {
-            height: 100%;
-            position: relative;
-            z-index: 1;
-
-        }
-        .background_img:after{
-            width: 100%;
-            height: 100%;
-            top:0;
-            left:0;
-            position:absolute;
-            background: url("{% static 'background1.png' %}") no-repeat center center fixed;
-            background-size: cover;
-            opacity: 0.5;
-            z-index:-1;
-            content:"";
-        }
-        .use_menu {
-            background-color: rgba(182, 255, 255, 0.5);
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/main.css'%}">
 </head>
 
-<body onload="init()" style="padding: 8px 15px;">
+<body onload="init()" style="padding: 8px 15px; overflow: hidden;">
     <div class="background_img">
-        <div>
-            <ul id="hexGrid">
-                <li class="hex">
-                    <div class="hexIn">
-                        <div class="hexLink">
-                            <img src="" alt="" />
-                        </div>
-                    </div>
-                </li>
-                <li class="hex">
-                    <div class="hexIn">
-                        <a class="hexLink use_menu" href="{% url 'lastsleep' %}">
-                            <img src="{% static 'sleep_analysis1.png' %}" alt="" />
-                            <h2>전날 수면 분석</h2>
-                            <h1>지난 밤 수면 분석</h1>
-                            <p>Some sample text about the article this hexagon leads to</p>
-                        </a>
-                    </div>
-                </li>
-                <li class="hex">
-                    <div class="hexIn">
-                        <div class="hexLink use_menu">
-                            <img src="https://farm3.staticflickr.com/2827/10384422264_d9c7299146.jpg" alt="" />
-                            <h1>This is a title</h1>
-                            <p>Some sample text about the article this hexagon leads to</p>
-                        </div>
-                    </div>
-                </li>
-                <li class="hex">
-                    <div class="hexIn">
-                        <div class="hexLink">
-                            <img src="" alt="" />
-                        </a>
-                    </div>
-                </li>
-                <li class="hex">
-                    <div class="hexIn">
-                        <div class="hexLink">
-                            <img src="" alt="" />
-                        </a>
-                    </div>
-                </li>
-                <li class="hex">
-                    <div class="hexIn">
-                        <a class="hexLink use_menu" href="{% url 'realtime' %}">
-                            <img src="{% static 'current_state1.png' %}" alt="" />
-                            <h2>현재 생체 정보</h2>
-                            <h1>This is a title</h1>
-                            <p>Some sample text about the article this hexagon leads to</p>
-                        </a>
-                    </div>
-                </li>
-                <li class="hex">
-                    <div class="hexIn">
-                        <div class="hexLink use_menu" href="">
-                            <img src="https://farm8.staticflickr.com/7187/6895047173_d4b1a0d798.jpg" alt="" />
-                            <h1>This is a title</h1>
-                            <p>Some sample text about the article this hexagon leads to</p>
-                        </div>
-                    </div>
-                </li>
-                <li class="hex">
-                    <div class="hexIn">
-                        <a class="hexLink use_menu" href="{% url 'linked' %}">
-                            <img src="{% static 'disease_predict1.png' %}" alt="" />
-                            <h2>연계 관리</h2>
-                            <h1>This is a title</h1>
-                            <p>Some sample text about the article this hexagon leads to</p>
-                        </a>
-                    </div>
-                </li>
-                <li class="hex">
-                    <div class="hexIn">
-                        <div class="hexLink">
-                            <img src="" alt="" />
-                        </a>
-                    </div>
-                </li>
-                <li class="hex">
-                    <div class="hexIn">
-                        <div class="hexLink">
-                            <img src="" alt="" />
-                        </a>
-                    </div>
-                </li>
-                <li class="hex">
-                    <div class="hexIn">
-                        <a class="hexLink use_menu" href="{% url 'statistic' %}">
-                            <img src="{% static 'history1.png' %}" alt="" />
-                            <h2>통계</h2>
-                            <h1>This is a title</h1>
-                            <p>Some sample text about the article this hexagon leads to</p>
-                        </a>
-                    </div>
-                </li>
-                <li class="hex">
-                    <div class="hexIn">
-                        <a class="hexLink use_menu" href="{% url 'myinfo' %}">
-                            <img src="{% static 'profile1.png' %}" alt="" />
-                            <h2>내 정보</h2>
-                            <h1>This is a title</h1>
-                            <p>Some sample text about the article this hexagon leads to</p>
-                        </a>
-                    </div>
-                </li>
-                <li class="hex">
-                    <div class="hexIn">
-                        <div class="hexLink">
-                            <img src="" alt="" />
-                        </a>
-                    </div>
-                </li>
-                <li class="hex">
-                    <div class="hexIn">
-                        <div class="hexLink">
-                            <img src="" alt="" />
-                        </a>
-                    </div>
-                </li>
-            </ul>
+        <div class="title">
+            <img class="title-img" src="{% static 'images/title.png' %}" alt="" />
         </div>
+        <ul>
+            <li>
+                <a class="content-div" href="{% url 'lastsleep' %}">
+                    <img class="content-img" src="{% static 'images/lastsleep.png' %}" alt="" />
+                </a>
+            </li>
+            <li>
+                <a class="content-div" href="{% url 'realtime' %}">
+                    <img class="content-img" src="{% static 'images/realtime.png' %}" alt="" />
+                </a>
+            </li>
+            <li>
+                <a class="content-div" href="{% url 'statistic' %}">
+                    <img class="content-img" src="{% static 'images/statistic.png' %}" alt="" />
+                </a>
+            </li>
+            <li>
+                <a class="content-div" href="{% url 'myinfo' %}">
+                    <img class="content-img" src="{% static 'images/myinfo.png' %}" alt="" />
+                </a>
+            </li>
+            <li>
+                <a class="content-div" href="{% url 'linked' %}">
+                    <img class="content-img" src="{% static 'images/linked.png' %}" alt="" />
+                </a>
+            </li>
+        </ul>
     </div>
     
    

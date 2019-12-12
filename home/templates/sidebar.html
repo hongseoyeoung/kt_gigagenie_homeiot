@@ -1,0 +1,86 @@
+{% load staticfiles %}
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/sidebar.css'%}">
+</head>
+<body style="padding: 8px 15px; overflow: hidden;">
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar_title center_align_out">
+            <img class="sidebar_title_img center_align_in" src="{% static 'images/side_title_close.png' %}" alt="" />
+        </div>
+        <div>
+            <ul>
+                <li class="ab">
+                    <a class="menu" href="{% url 'lastsleep' %}">
+                        <div class="menu-in">
+                            <img src="{% static 'images/lastsleep_icon.png' %}" alt="" />
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="menu" href="{% url 'realtime' %}">
+                        <div class="menu-in">
+                            <img class="center_align_in" src="{% static 'images/realtime_icon.png' %}" alt="" />
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="menu" href="{% url 'statistic' %}">
+                        <div class="menu-in">
+                            <img class="center_align_in" src="{% static 'images/statistic_icon.png' %}" alt="" />
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="menu" href="{% url 'myinfo' %}">
+                        <div class="menu-in">
+                            <img class="center_align_in" src="{% static 'images/myinfo_icon.png' %}" alt="" />
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="menu" href="{% url 'linked' %}">
+                        <div class="menu-in">
+                            <img class="center_align_in" src="{% static 'images/linked_icon.png' %}" alt="" />
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div id="sidebar-toggle">오픈</div>
+    </div>
+    
+    <div style="padding-left: 10%;">   
+        {% block contents %}
+        {% endblock %}
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://svcapi.gigagenie.ai/sdk/v1.0/js/gigagenie.js"></script>
+    <script>
+        $(function(){
+            var duration = 300;
+
+            var $sidebar = $('.sidebar');
+            var $sidebarButton = $sidebar.find('button').on('click', function(){
+                $sidebar.toggleClass('open');
+                if($sidebar.hasClass('open')){
+                    $sidebar.stop(true).animate({left: '-70px'}, duration, 'easeOutBack');
+                    $sidebarButton.find('span').text("CLOSE");
+                }
+                else {
+                    $sidebar.stop(true).animate({left: '-270px'}, duration, "easeInBack");
+                    $sidebarButton.find('span').text('OPEN');
+                };
+            });
+        });
+
+        $("#sidebar-toggle").click(function(){
+            $("html").toggleClass("open");
+        });
+    </script>
+</body>

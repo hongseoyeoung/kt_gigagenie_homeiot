@@ -15,7 +15,6 @@
 			support2d = Modernizr.csstransforms,
 			rgCurrentIndex = 0;
 
-			
 			rgShowCount = 5,
 			rgTansCSS = [],
 			animatDuration = opts.animatDuration,

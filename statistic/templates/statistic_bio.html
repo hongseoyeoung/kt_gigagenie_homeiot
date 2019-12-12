@@ -2,9 +2,64 @@
 {% load staticfiles %}
 {% block contents %}
 <head>
+    <style>
+        .list {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            height: 50%;
+            margin: 10% auto;
+        }
+        ul {
+            
+            height: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+            
+        }
+        li {
+            width: 200px;
+            height: 100px;
+            text-align: center;
 
+            list-style: none;
+            border: black 1px solid;
+        }    
+    </style>
 </head>
 <body>
-    
+    <div class="fluid-container">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="list">
+                <ul>
+                    <li>
+                        <a href="">   
+                            심박수
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">   
+                            호흡수
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">   
+                            심박출량
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">   
+                            심박변이도
+                        </a>
+                    </li>
+                </ul>
+                </div>
+            </div>
+            <div class="col-md-10">
+                sdffgsdfsdf
+            </div>
+        </div>
+    </div>
 </body>
 {% endblock %}
