@@ -1,104 +1,204 @@
+{% extends 'sidebar.html' %}
+{% load staticfiles %}
+
+{% block contents %}
+
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{% static 'css/realtime.css'%}">
     <!--<meta http-equiv="refresh" content="5">-->
 </head>
 <body onload="init()" style="padding: 8px 15px;">
     <div class="container-fluid">
-        <div style="margin-left: 100px; margin-top:20px; margin-bottom: 10px;">
-            <h1 style="size:5em">실시간 생체 데이터 입니다.</h1>
+        <div class="headline">
+            <a class="back" href="{% url 'home' %}">
+                <img src="{% static 'images/back.png' %}">
+            </a>
+            <p class="headline_title">실시간 생체 데이터</p>
         </div>
-        <table class="table table-hover" style="width: 50%; margin-left: 100px">
-            <tr>
-                <th>심박수</th>
-                <td id="hr">{{hr}}</td>
-            </tr>
-            <tr>
-                <th>호흡수</th>
-                <td id="rr">{{rr}}</td>
-            </tr>
-            <tr>
-                <th>심박출량</th>
-                <td id="sv">{{sv}}</td>
-            </tr>
-            <tr>
-                <th>심박변이도</th>
-                <td id="hrv">{{hrv}}</td>
-            </tr>
-            <tr>
-                <th>진동 세기</th>
-                <td id="ss">{{ss}}</td>
-            </tr>
-            <tr>
-                <th>상태</th>
-                <td id="state">{{state}}</td>
-            </tr>
-        </table>
+        <div class="contents">
+            <div class="realtime_box">
+                <div class="card_head">
+                    <p class="card_title">생체 정보</p>
+                </div>
+                <div class="card_body">
+                    <div class="row">
+                        <a href="javascript:void(0);" class="col-md-3 chart_element" id="hrtext">
+                            <div class="small_chart" id="hrchart"></div>
+                            <p class="value" id="hrvalue">{{hr}}</p>
+                        </a>
+                        <a href="javascript:void(0);" class="col-md-3 chart_element" id="rrtext">
+                            <div class="small_chart" id="rrchart"></div>
+                            <p class="value" id="rrvalue">{{rr}}</p>
+                        </a>
+                        <a href="javascript:void(0);" class="col-md-3 chart_element" id="svtext">
+                            <div class="small_chart" id="svchart"></div>
+                            <p class="value" id="svvalue">{{sv}}</p>
+                        </a>
+                        <a href="javascript:void(0);" class="col-md-3 chart_element" id="hrvtext">
+                            <div class="small_chart" id="hrvchart"></div>
+                            <p class="value" id="hrvvalue">{{hrv}}</p>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 chart_element">
+                          <p class="bcgtext">심박수</p>
+                        </div>
+                        <div class="col-md-3 chart_element">
+                          <p class="bcgtext">호흡수</p>
+                        </div>
+                        <div class="col-md-3 chart_element">
+                          <p class="bcgtext">심박출량</p>
+                        </div>
+                        <div class="col-md-3 chart_element">
+                          <p class="bcgtext">심박변이도</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card_tail">
+                  <div class="speechbubble">
+                    <div class="triangle"></div>
+                    <div class="bubblecontents">
+                        <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                          심박수에 대한 설명설명 설명 <br>
+                          정상 범위는 00부터 00까지로 현재 평균입니다.
+                          등등
+                        </p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="voice_guide">
+            <div>
+                <div class="voice_contents">
+                    <img class="icon" src="{% static 'images/voice_icon.png' %}">
+                    <img clas="bar" src="{% static 'images/voice_bar.png' %}">
+                    <p style="font-size: 1.3vw;">지니야, 총 수면 시간 알려줘</p>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
     
-
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="https://svcapi.gigagenie.ai/sdk/v1.0/js/gigagenie.js"></script>
-    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-    var options={};
-    function init(){
-        options={};
-        options.apikey="RTUwMDI5MzN8R0JPWERFVk18MTU1ODQxODIyNjk0Mg==";
-        options.keytype="GBOXDEVM";
-        gigagenie.init(options, function(result_cd, result_msg, extra){
-            if(result_cd === 200){
-                var options={};
-                setVoiceFilter();
-                getVoiceText();
-                gigagenie.voice.sendTTS(options, function(result_cd, result_msg, extra){
-                    if(result_cd === 200){
-                        
-                    } else {
 
-                    };
-                    
-                });
-            };
+      var options={};
+      var data2 = {};
+      data2['hr'] = {{hr}};
+      data2['rr'] = {{rr}};
+      data2['sv'] = {{sv}};
+      data2['hrv'] = {{hrv}};
+
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      
+      function init(){
+        google.charts.setOnLoadCallback(drawChart(data2));
+          options={};
+          options.apikey="RTUwMDI5MzN8R0JPWERFVk18MTU1ODQxODIyNjk0Mg==";
+          options.keytype="GBOXDEVM";
+          gigagenie.init(options, function(result_cd, result_msg, extra){
+              if(result_cd === 200){
+                  var options={};
+                  setVoiceFilter();
+                  getVoiceText();
+                  gigagenie.voice.sendTTS(options, function(result_cd, result_msg, extra){
+                      if(result_cd === 200){
+                          
+                      } else {
+
+                      };
+                      
+                  });
+              };
+          });
+      };
+      
+      var bubble_width = $(".speechbubble").width();
+      var tri_width = $(".triangle").css("borderLeftWidth");
+      tri_width = parseFloat(tri_width);
+
+      $("#hrtext").focus(function() {
+          $(".triangle").css("left", bubble_width / 8 - tri_width);
+          $("#explain").html("심박수에 대한 설명 설명 설명 <br> 정상 범위는 00부터 00까지로 현재 평균입니다.등등");
+      });
+
+      $("#hrtext").mouseover(function() {
+          $(".triangle").css("left",bubble_width / 8 - tri_width);
+          $("#explain").html("심박수에 대한 설명 설명 설명 <br> 정상 범위는 00부터 00까지로 현재 평균입니다.등등");
+      });
+
+
+      $("#rrtext").focus(function() {
+          $(".triangle").css("left",bubble_width / 8 * 3 - tri_width);
+          $("#explain").html("호흡수에 대한 설명 설명 설명 <br> 정상 범위는 00부터 00까지로 현재 평균입니다.등등");
+      });
+
+
+      $("#rrtext").mouseover(function() {
+          $(".triangle").css("left",bubble_width / 8 * 3 - tri_width);
+          $("#explain").html("호흡수에 대한 설명 설명 설명 <br> 정상 범위는 00부터 00까지로 현재 평균입니다.등등");
+      });
+
+      $("#svtext").focus(function() {
+          $(".triangle").css("left",bubble_width / 8 * 5 - tri_width);
+          $("#explain").html("심박출량에 대한 설명 설명 설명 <br> 정상 범위는 00부터 00까지로 현재 평균입니다.등등");
+      });
+
+
+      $("#svtext").mouseover(function() {
+          $(".triangle").css("left",bubble_width / 8 * 5 - tri_width);
+          $("#explain").html("심박출량에 대한 설명 설명 설명 <br> 정상 범위는 00부터 00까지로 현재 평균입니다.등등");
+      });
+
+      $("#hrvtext").focus(function() {
+          $(".triangle").css("left",bubble_width / 8 * 7 - tri_width);
+          $("#explain").html("심박변이도에 대한 설명 설명 설명 <br> 정상 범위는 00부터 00까지로 현재 평균입니다.등등");
+      });
+
+
+      $("#hrvtext").mouseover(function() {
+          $(".triangle").css("left",bubble_width / 8 * 7 - tri_width);
+          $("#explain").html("심박변이도에 대한 설명 설명 설명 <br> 정상 범위는 00부터 00까지로 현재 평균입니다.등등");
+      });
+
+      setInterval(function(){
+          $.ajax({
+              url : "{% url 'ajax' %}",
+              dataType: 'json',
+              success: function(data) {
+                  $('#hrvalue').html(data['hr']);
+                  $('#rrvalue').html(data['rr']);
+                  $('#svvalue').html(data['sv']);
+                  $('#hrvvalue').html(data['hrv']);
+                  google.charts.setOnLoadCallback(drawChart(data));
+              },
+              error: function(reuqest, status, error){
+                  alert("ajax통신실패...");
+                  alert(error);
+                  alert(request);
+                  window.location.replace("{% url 'realtime' %}")
+              },
+          })
+      }, 5000);
+      
+      function setVoiceFilter() {
+        options = {};
+        options.keyword = [ "심박수", "호흡수", "심박출량", "심박변이도" ];
+        gigagenie.voice.setVoiceFilter(options, function(result_cd, result_msg, extra) {
+          if (result_cd === 200) {
+          }
         });
-    }
-    
-    setInterval(function(){
-        $.ajax({
-            url : "{% url 'ajax' %}",
-            dataType: 'json',
-            success: function(data) {
-                $('#hr').html(data['hr']);
-                $('#rr').html(data['rr']);
-                $('#sv').html(data['sv']);
-                $('#hrv').html(data['hrv']);
-                $('#ss').html(data['ss']);
-                $('#state').html(data['state']);
-            },
-            error: function(reuqest, status, error){
-                alert("ajax통신실패...");
-                alert(error);
-                alert(request);
-                window.location.replace("{% url 'realtime' %}")
-            },
-        })
-    }, 5000);
+      };
 
-    function setVoiceFilter() {
-		options = {};
-		options.keyword = [ "심박수", "호흡수", "심박출량", "심박변이도" ];
-		gigagenie.voice.setVoiceFilter(options, function(result_cd, result_msg, extra) {
-			if (result_cd === 200) {
-			}
-		});
-	};
-
-    gigagenie.voice.onVoiceFilterMsg = function(message) {
+      gigagenie.voice.onVoiceFilterMsg = function(message) {
         if(message.indexOf("심박수") >= 0){
             var msg = "현재 심박수는 " + $('#hr').text() + "입니다.";
             sendTTS(msg);
@@ -115,27 +215,196 @@
             var msg = "현재 심박변이도는 " + $('#hrv').text() + "입니다.";
             sendTTS(msg);
         };
-	};
+	    };
 
-    function getVoiceText() {
-		options = {};
-		
-		gigagenie.voice.getVoiceText(options, function(result_cd, result_msg, extra) {
-			alert("음성인식 결과 : " + extra.voicetext);
-		});
-	};
+      function getVoiceText() {
+        options = {};
+        
+        gigagenie.voice.getVoiceText(options, function(result_cd, result_msg, extra) {
+          alert("음성인식 결과 : " + extra.voicetext);
+        });
+      };
 
-    function sendTTS(msg){
-        var options={};
-            options.ttstext=msg;
-            gigagenie.voice.sendTTS(options, function(result_cd, result_msg, extra){
-                if(result_cd === 200){
+      function sendTTS(msg){
+          var options={};
+              options.ttstext=msg;
+              gigagenie.voice.sendTTS(options, function(result_cd, result_msg, extra){
+                  if(result_cd === 200){
 
-                }else{
+                  }else{
 
-                };
-                
-            });
-    }
+                  };
+                  
+              });
+      };
+
+
+      function drawChart(data1) {
+          var font_size = screen.width / 100;
+          var card_width = $(".chart_element").width();
+
+          var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['',     120 - data1['hr']],
+            ['',     data1['hr']]
+          ]);
+
+          var options = {
+            pieHole: 0.9,
+            pieSliceText: 'none',
+            width: card_width,
+            height: card_width,
+            chartArea: {
+              left: '5%',
+              top: '5%',
+              right: '5%',
+              bottom: '5%',
+              width: '90%',
+              height: '90%',
+            },
+            pieSliceBorderColor: 'transparent',
+            slices: {
+              0: { color: 'rgb(85, 93, 126)' },
+              1: { color: 'rgb(44, 206, 215)' }
+            },
+            tooltip: { trigger: 'none'},
+            legend: 'none',
+            backgroundColor: {
+              fillOpacity: 0
+            },
+          };
+
+          var chart_div = document.getElementById('hrchart');
+          var chart = new google.visualization.PieChart(chart_div);
+          google.visualization.events.addListener(chart, 'ready', function () {
+            chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+          });
+          
+          chart.draw(data, options);
+
+
+
+          var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['',     20 - data1['rr']],
+            ['',     data1['rr']]
+          ]);
+
+          var options = {
+            pieHole: 0.9,
+            pieSliceText: 'none',
+            width: card_width,
+            height: card_width,
+            chartArea: {
+              left: '5%',
+              top: '5%',
+              right: '5%',
+              bottom: '5%',
+              width: '90%',
+              height: '90%',
+            },
+            pieSliceBorderColor: 'transparent',
+            slices: {
+              0: { color: 'rgb(85, 93, 126)' },
+              1: { color: 'rgb(187, 131, 231)' }
+            },
+            tooltip: { trigger: 'none'},
+            legend: 'none',
+            backgroundColor: {
+              fillOpacity: 0
+            },
+          }
+
+          var chart_div = document.getElementById('rrchart');
+          var chart = new google.visualization.PieChart(chart_div);
+          google.visualization.events.addListener(chart, 'ready', function () {
+            chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+          });
+          
+          chart.draw(data, options);
+          
+          var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['',     200 - data1['sv']],
+            ['',     data1['sv']]
+          ]);
+
+          var options = {
+            pieHole: 0.9,
+            pieSliceText: 'none',
+            width: card_width,
+            height: card_width,
+            chartArea: {
+              left: '5%',
+              top: '5%',
+              right: '5%',
+              bottom: '5%',
+              width: '90%',
+              height: '90%',
+            },
+            pieSliceBorderColor: 'transparent',
+            slices: {
+              0: { color: 'rgb(85, 93, 126)' },
+              1: { color: 'rgb(233, 139, 92)' }
+            },
+            tooltip: { trigger: 'none'},
+            legend: 'none',
+            backgroundColor: {
+              fillOpacity: 0
+            },
+          };
+
+          var chart_div = document.getElementById('svchart');
+          var chart = new google.visualization.PieChart(chart_div);
+          google.visualization.events.addListener(chart, 'ready', function () {
+            chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+          });
+          
+          chart.draw(data, options);
+
+
+        
+          var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['',     520 - data1['hrv']],
+            ['',     data1['hrv']]
+          ]);
+
+          var options = {
+            pieHole: 0.9,
+            pieSliceText: 'none',
+            width: card_width,
+            height: card_width,
+            chartArea: {
+              left: '5%',
+              top: '5%',
+              right: '5%',
+              bottom: '5%',
+              width: '90%',
+              height: '90%',
+            },
+            pieSliceBorderColor: 'transparent',
+            slices: {
+              0: { color: 'rgb(85, 93, 126)' },
+              1: { color: 'rgb(103, 92, 248)' }
+            },
+            tooltip: { trigger: 'none'},
+            legend: 'none',
+            backgroundColor: {
+              fillOpacity: 0
+            },
+          };
+
+          var chart_div = document.getElementById('hrvchart');
+          var chart = new google.visualization.PieChart(chart_div);
+          google.visualization.events.addListener(chart, 'ready', function () {
+            chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+          });
+          
+          chart.draw(data, options);
+      }
+
     </script>
 </body>
+
+{% endblock %}

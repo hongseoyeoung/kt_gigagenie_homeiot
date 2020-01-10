@@ -1,5 +1,333 @@
 {% extends 'sidebar.html' %}
 {% load staticfiles %}
 {% block contents %}
-<h1>수면</h1>
+<head>
+    <link rel="stylesheet" href="{% static 'css/statistic_sub.css'%}">
+</head>
+<body style="padding: 8px 15px;">
+    <div class="container-fluid">
+        <div class="headline">
+            <a class="back" href="{% url 'statistic' %}">
+                <img src="{% static 'images/back.png' %}">
+            </a>
+            <p class="headline_title"><span style="font-size:1.5vw ">통계 - </span>수면 분석</p>
+        </div>
+        <div class="contents">
+           <div class="classification">
+               <ul class="date_list">
+                   <li class="date">
+                        <a class="date_button selected" href=".day">
+                            <p>일간</p>
+                        </a>
+                   </li>
+                   <li class="date">
+                        <a class="date_button" href=".week">
+                            <p>주간</p>
+                        </a>
+                   </li>
+                   <li class="date">
+                        <a class="date_button" href=".month">
+                            <p>월간</p>
+                        </a>
+                   </li>
+                   <li class="date">
+                        <a class="calendar_button" href="">
+                            <div>
+                                <img src="{% static 'images/calendar.png' %}" id="calendar">
+                            </div>
+                        </a>
+                    </li>
+               </ul>
+           </div>
+           <div class="main_contents">
+                <div class="main_container">
+                    <a class="btn btn_prev" href="javascript:void(0);"></a> 
+                    <a class="btn btn_next" href="javascript:void(0);"></a>
+                    <ul class="contents_wrapper" style="height: 95%;">
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">수면 무호흡</p>
+                                    <p class="card_date">2020.01.09 ~ 2020.01.15</p>
+                                </div>
+                                <div class="day tabPage" id="hrvday">
+                                    <div class="card_contents">
+                                        <div class="graph">
+                                          <div class="big_chart" id="apneachart1"></div>
+                                        </div>
+                                        <div class="speechbubble">
+                                          <div class="triangle"></div>
+                                          <div class="bubblecontents">
+                                              <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                                수면무호흡에 대한 설명 설명 <br>
+                                                어젯밤 수면 무호흡 횟수 : 00
+                                                무호흡 시간: 00
+                                                등등
+                                              </p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="week tabPage" id="hrvweek">
+                                    b
+                                </div>
+                                <div class="month tabPage" id="hrvmonth">
+                                    c
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">수면 단계 분석</p>
+                                    <p class="card_date">2020.01.09 ~ 2020.01.15</p>
+                                </div>
+                                <div class="day tabPage" id="hrday">
+                                    <div class="card_contents">
+                                        <div class="graph">
+                                          <div class="big_chart" id="sleepchart1"></div>
+                                        </div>
+                                        <div class="speechbubble">
+                                          <div class="triangle"></div>
+                                          <div class="bubblecontents">
+                                              <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                                수면 단계에 대한 설명 <br>
+                                                총 수면 시간 00시간 
+                                                깊은 잠 00시간
+                                                렘 수면 00시간
+                                              </p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="week tabPage" id="hrweek">
+                                    b
+                                </div>
+                                <div class="month tabPage" id="hrmonth">
+                                    c
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">수면 무호흡</p>
+                                    <p class="card_date">2020.01.09 ~ 2020.01.15</p>
+                                </div>
+                                <div class="day tabPage" id="rrday">
+                                    <div class="card_contents">
+                                        <div class="graph">
+                                          <div class="big_chart" id="apneachart2"></div>
+                                        </div>
+                                        <div class="speechbubble">
+                                          <div class="triangle"></div>
+                                          <div class="bubblecontents">
+                                              <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                                수면무호흡에 대한 설명 설명 <br>
+                                                어젯밤 수면 무호흡 횟수 : 00
+                                                무호흡 시간: 00
+                                                등등
+                                              </p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="week tabPage" id="rrweek">
+                                    b
+                                </div>
+                                <div class="month tabPage" id="rrmonth">
+                                    c
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">수면 단계 분석</p>
+                                    <p class="card_date">2020.01.09 ~ 2020.01.15</p>
+                                </div>
+                                <div class="day tabPage" id="svday">
+                                    <div class="card_contents">
+                                        <div class="graph">
+                                          <div class="big_chart" id="sleepchart2"></div>
+                                        </div>
+                                        <div class="speechbubble">
+                                          <div class="triangle"></div>
+                                          <div class="bubblecontents">
+                                              <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                                수면 단계에 대한 설명 <br>
+                                                총 수면 시간 00시간 
+                                                깊은 잠 00시간
+                                                렘 수면 00시간
+                                              </p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="week tabPage" id="svweek">
+                                    b
+                                </div>
+                                <div class="month tabPage" id="svmonth">
+                                    c
+                                </div>
+                            </div>
+                        </li>
+                      </ul>
+                </div>
+           </div>
+        </div>
+        <div class="voice_guide">
+            <div>
+                <div class="voice_contents">
+                    <img class="icon" src="{% static 'images/voice_icon.png' %}">
+                    <img clas="bar" src="{% static 'images/voice_bar.png' %}">
+                    <p style="font-size: 1.3vw;">지니야, 총 수면 시간 알려줘</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/modernizr.custom.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/statistic_sub.js' %}"></script>
+    <script type="text/javascript">
+        $('.contents_wrapper').responsiveGallery({
+            animatDuration: 400, 
+            $btn_prev: $('.btn_prev'),
+            $btn_next: $('.btn_next')
+        });
+
+        function tabSetting() {
+            // 탭 컨텐츠 hide 후 현재 탭메뉴 페이지만 show
+            $('.tabPage').hide();
+            $($('.selected').attr('href')).show();
+        
+            // Tab 메뉴 클릭 이벤트 생성
+            $('.date_button').click(function (event) {
+                var tagName = event.target.tagName; // 현재 선택된 태그네임
+                var selectedATag;
+                if (tagName.toString() == "li") {
+                    selectedATag = $(event.target).children('A');
+                }
+                else if ( tagName.toString() == "P") {
+                    selectedATag =  $(event.target).parent('A');
+                }
+                else {
+                    selectedATag = $(event.target);
+                }
+                var currentATag = $('a[class~=selected]'); // 현재 selected 클래그를 가진 탭
+                var isCurrent = false;  
+                    
+                // 현재 클릭된 탭이 selected를 가졌는지 확인
+                isCurrent = $(selectedATag).hasClass('selected');
+                    
+                // selectedf를 가지지 않았을 경우만 실행
+                if (!isCurrent) {
+                    $($(currentATag).attr('href')).hide();
+                    $(currentATag).removeClass('selected');
+        
+                    $(selectedATag).addClass('selected');
+                    $($(selectedATag).attr('href')).show();
+                }
+        
+                return false;
+            });
+		}
+		 
+        $(function () {
+            // 탭 초기화 및 설정
+            tabSetting();
+        });
+
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+          var font_size = screen.width / 100;
+          var data = google.visualization.arrayToDataTable([
+            ['Year', 'wake',    'rem'],
+            ['2013',  10,      40],
+            ['2014',  11,      46],
+            ['2015',  66,       11],
+            ['2016',  10,      54]
+            ]);
+
+            var options = {
+            legend: 'none',
+            chartArea: {
+                left: '10%', top: '10%',
+                right: '0%', bottom: '10%',
+                width: '90%',
+                height: '90%',
+            },
+            tooltip: { trigger: 'none'},
+            backgroundColor: {
+                fillOpacity: 0
+            },
+            vAxis: {
+                gridlines: { count: 6, color: 'none'},
+                textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+                }
+            },
+            hAxis: {
+                textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+                },
+            },
+            };
+
+            var chart = new google.visualization.AreaChart(document.getElementById('sleepchart1'));
+            chart.draw(data, options);
+
+            var chart = new google.visualization.AreaChart(document.getElementById('sleepchart2'));
+            chart.draw(data, options);
+
+
+            var data = google.visualization.arrayToDataTable([
+            ['Year', 'wake',    'rem'],
+            ['2013',  10,      40],
+            ['2014',  11,      46],
+            ['2015',  66,       11],
+            ['2016',  10,      54]
+            ]);
+
+            var options = {
+            legend: 'none',
+            chartArea: {
+                left: '10%', top: '10%',
+                right: '0%', bottom: '10%',
+                width: '90%',
+                height: '90%',
+            },
+            tooltip: { trigger: 'none'},
+            backgroundColor: {
+                fillOpacity: 0
+            },
+            vAxis: {
+                gridlines: { count: 6, color: 'none'},
+                textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+                }
+            },
+            hAxis: {
+                textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+                },
+            },
+            };
+
+            var chart = new google.visualization.AreaChart(document.getElementById('apneachart1'));
+            chart.draw(data, options);
+
+            var chart = new google.visualization.AreaChart(document.getElementById('apneachart2'));
+            chart.draw(data, options);
+        }
+    </script>
+</body>
 {% endblock %}

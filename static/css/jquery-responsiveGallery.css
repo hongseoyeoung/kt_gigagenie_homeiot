@@ -13,11 +13,11 @@
 	height: 100%;
 }
 .responsiveGallery-btn_prev{
-	background:url(images/arrow-left.png) center center no-repeat;
+	background:url(../images/arrow-left.png) center center no-repeat;
 	left:1%;
 }
 .responsiveGallery-btn_next{
-	background:url(images/arrow-right.png) center center no-repeat;
+	background:url(../images/arrow-right.png) center center no-repeat;
 	right:1%;
 }
 
@@ -27,7 +27,7 @@
 	width: 90%;
 	margin: 0 auto;
 
-	padding-top: 25%;/*用padding撑开容器高度*/
+	padding-top: 25%;
 
 	-webkit-transform-style: preserve-3d;
 	-moz-transform-style: preserve-3d;
@@ -47,35 +47,15 @@
 	z-index: 0;
 
 	display: block;
-	width: 20%; /*默认显示5个*/
+	width: 80%; 
 
 	opacity: 0;
 	visibility: hidden;
 }
-@media (max-width: 1000px){
-	.responsiveGallery-item{
-		width: 33.33%; /*此宽度下显示3个*/
-	}
-	.responsiveGallery-wrapper{
-		padding-top: 45%;/*相应调整容器高度*/
-	}
 
-}
-@media (max-width: 560px){
-	.responsiveGallery-wrapper{
-		width: 60%;
-	}
-	.responsiveGallery-item{
-		width: 100%; /*最终显示1个，但上条样式决定其宽度为窗口宽度的60%*/
-	}
-	.responsiveGallery-wrapper{
-		padding-top: 80%;/*相应调整容器高度*/
-	}
-	.responsiveGallery-btn{
-		width: 8%;
-	}
-}
 .responsivGallery-link{
+	background-color: #fff;
+	height: 700px;
 	display: block;
 	width: 100%;
 	box-shadow: 0px 0px 20px rgba(0,0,0,0.3);
@@ -87,15 +67,15 @@
 .w-responsivGallery-info{
 	width: 80%;
 	margin: 0 auto;
-	padding-top: 5%;
+	padding-top: 2.5%;
 	text-align: center;
-	color: #fff;
+	color: #000;
 }
 .responsivGallery-name{
 	font-size: 1.25em;
 }
 .responsivGallery-position{
-	padding-top: 4%;
+
 	font-size: 0.875em;
 	line-height: 1.3;
 }

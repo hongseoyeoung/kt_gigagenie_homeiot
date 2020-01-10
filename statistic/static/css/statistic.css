@@ -1,0 +1,41 @@
+.contents {
+    width: 100%;
+    height: 60%;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    margin-left: 0;
+    margin-right: 0;
+ }
+
+ .card {
+    padding: 0 0.9%;
+    background-color: rgba(255, 255, 255, 0);
+    outline: 0;
+    border: 0;
+}
+
+.card_contents {
+    height: 100%;
+    border-radius: 20px;
+    background-color: rgb(47, 55, 88);
+    text-align: center;
+}
+
+.card:hover, .card:focus {
+    border: 0;
+    outline: 0;
+}
+
+.card:hover > .card_contents, .card:focus > .card_contents {
+    box-shadow: 0 0 25px -3px rgb(255, 255, 255);
+}
+
+.card_contents img {
+    margin-top: 35%;
+}
+
+.subtitle {
+    color: white;
+    font-size: 2vw;
+}
+

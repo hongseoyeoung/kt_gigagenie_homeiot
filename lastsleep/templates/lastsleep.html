@@ -1,250 +1,617 @@
 {% extends 'sidebar.html' %}
+{% load staticfiles %}
 
 {% block contents %}
 
-
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
-    <style>
-        .col-md-4 {
-            padding: 15px 15px;
-        }
-        a:link{
-            color:black; text-decoration: none;
-        }
-        a:visited{
-            color: black; text-decoration: none;
-        }
-        a:hover{
-            color:black;text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/lastsleep.css'%}">
 </head>
 <body style="padding: 8px 15px;">
-    <div class="container-fluid" >
-        <div class="row" style="height:90%">
-            <div class="col-md-4" >
-                <a href="{% url 'detail_bio' %}">
-                <div class="card" style="height:100%;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="float:left">생체 정보</h5>
-                            <h6 class="cart-subtitle mb-2 text-muted" style="float:right">상세 보기></h6>
-                        
-                        <br><hr>
-                        <canvas id="myChart" width="90%" height="60%"></canvas>
-                        <table class="table table-hover">
-                            <tr>
-                                <th>심박수 평균</th>
-                                <td id="hr">{{hr_mean}}</td>
-                            </tr>
-                            <tr>
-                                <th>호흡수 평균</th>
-                                <td id="rr">{{rr_mean}}</td>
-                            </tr>
-                            <tr>
-                                <th>심박출량 평균</th>
-                                <td id="sv">{{sv_mean}}</td>
-                            </tr>
-                            <tr>
-                                <th>심박변이도 평균</th>
-                                <td id="hrv">{{hrv_mean}}</td>
-                            </tr>
-                        </table>
+    <div class="container-fluid">
+        <div class="headline">
+            <a class="back" href="{% url 'home' %}">
+                <img src="{% static 'images/back.png' %}">
+            </a>
+            <p class="headline_title">지난밤 수면 분석</p>
+        </div>
+        <div class="row sleep_contents">
+            <a class="col-md-4 card" href="{% url 'detail_sleep' %}">
+                <div class="card_contents">
+                    <div class="card_head">
+                        <p class="card_title">수면 분석</p>
+                        <p class="view_detail">자세히보기></p>
+                    </div>
+                    <div class="card_body">
+                        <div class="big_chart" id="sleepchart"></div>
+                    </div>
+                    <div class="card_tail row">
+                        <div class="col-md-6 chart_element">
+                            <div class="small_chart" id="totalsleepchart"></div>
+                            <p class="value" id="totalsleepvalue" style="font-size: 0.7vw;">
+                              <span style="font-size: 1.2vw;">7</span>시간 <br> 
+                              <span style="font-size: 1.2vw;">30</span>분
+                            </p>
+                        </div>
+                        <div class="col-md-6 chart_element">
+                            <div class="small_chart" id="deepsleepchart"></div>
+                            <p class="value" id="deepsleepvalue">9</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 chart_element">
+                          <p class="bcgtext">총 수면 시간</p>
+                        </div>
+                        <div class="col-md-6 chart_element">
+                          <p class="bcgtext">깊은 수면 시간</p>
+                        </div>
                     </div>
                 </div>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <div class="card" style="height:100%;">
-                    <div class="card-body">
-                        <h5 class="card-title" style="float:left">수면 분석</h5>
-                        <a href="{% url 'detail_sleep' %}">
-                            <h6 class="cart-subtitle mb-2 text-muted" style="float:right">상세 보기></h6>
-                        </a>
-                        <br><hr>
-                        <canvas id="myChart2" width="90%" height="60%"></canvas>
-                        <table class="table table-hover">
-                            <tr>
-                                <th>총 수면 시간</th>
-                                <td>7시간 32분</td>
-                            </tr>
-                            <tr>
-                                <th>무호흡 시간</th>
-                                <td>1시간 6분</td>
-                            </tr>
-                            <tr>
-                                <th>숙면 시간</th>
-                                <td>6시간 26분</td>
-                            </tr>
-                            <tr>
-                                <th>무호흡 비율</th>
-                                <td>14.32%</td>
-                            </tr>
-                        </table>
+            </a>
+            <a class="col-md-4 card" href="{% url 'detail_bio' %}">
+                <div class="card_contents">
+                    <div class="card_head">
+                        <p class="card_title">생체 정보</p>
+                        <p class="view_detail">자세히보기></p>
+                    </div>
+                    <div class="card_body">
+                        <div class="big_chart" id="bcgchart"></div>
+                    </div>
+                    <div class="card_tail row">
+                        <div class="col-md-3 chart_element">
+                            <div class="small_chart" id="hrchart"></div>
+                            <p class="value" id="hrvalue">{{hr_mean}}</p>
+                        </div>
+                        <div class="col-md-3 chart_element">
+                            <div class="small_chart" id="rrchart"></div>
+                            <p class="value" id="rrvalue">{{rr_mean}}</p>
+                        </div>
+                        <div class="col-md-3 chart_element">
+                            <div class="small_chart" id="svchart"></div>
+                            <p class="value" id="svvalue">{{sv_mean}}</p>
+                        </div>
+                        <div class="col-md-3 chart_element">
+                            <div class="small_chart" id="hrvchart"></div>
+                            <p class="value" id="hrvvalue">{{hrv_mean}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 chart_element">
+                          <p class="bcgtext">심박수</p>
+                        </div>
+                        <div class="col-md-3 chart_element">
+                          <p class="bcgtext">호흡수</p>
+                        </div>
+                        <div class="col-md-3 chart_element">
+                          <p class="bcgtext">심박출량</p>
+                        </div>
+                        <div class="col-md-3 chart_element">
+                          <p class="bcgtext">심박변이도</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card" style="height:100%">
-                    <div class="card-body">
-                        <h5 class="card-title" style="float:left">질병 정보</h5>
-                        <a href="{% url 'detail_disease' %}">
-                            <h6 class="cart-subtitle mb-2 text-muted" style="float:right">상세 보기></h6>
-                        </a>
-                        <br><hr>
-                        <canvas id="myChart3" width="90%" height="60%"></canvas>
-                        <table class="table table-hover">
-                            <tr>
-                                <th>당뇨 추세</th>
-                                <td>10%</td>
-                            </tr>
-                            <tr>
-                                <th>부정맥 추세</th>
-                                <td>32%</td>
-                            </tr>
-                            <tr>
-                                <th>고혈압 추세</th>
-                                <td>3%</td>
-                            </tr>
-                        </table>
+
+            </a>
+            <a class="col-md-4 card" href="{% url 'detail_disease' %}">
+                <div class="card_contents">
+                    <div class="card_head">
+                        <p class="card_title">질병 모니터링</p>
+                        <p class="view_detail">자세히보기></p>
                     </div>
+                    <div class="card_body">
+                      <canvas class="big_chart" id="radarchart" style="width: 100%;height:60%"></canvas>
+                    </div>
+                    <div class="card_tail row">
+                        <div class="col-md-4 chart_element">
+                            <div class="small_chart" id="diabeteschart"></div>
+                            <p class="value" id="diabetesvalue" style="font-size: 1vw;">
+                              <span style="font-size: 2vw;">7</span>%
+                            </p>
+                        </div>
+                        <div class="col-md-4 chart_element">
+                            <div class="small_chart" id="arrhythmiachart"></div>
+                            <p class="value" id="arrhythmiavalue" style="font-size: 1vw;">
+                              <span style="font-size: 2vw;">10</span>%
+                            </p>
+                        </div>
+                        <div class="col-md-4 chart_element">
+                          <div class="small_chart" id="highbloodchart"></div>
+                          <p class="value" id="highbloodvalue" style="font-size: 1vw;">
+                            <span style="font-size: 2vw;">9</span>%
+                          </p>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 chart_element">
+                          <p class="bcgtext">당뇨 확률</p>
+                        </div>
+                        <div class="col-md-4 chart_element">
+                          <p class="bcgtext">부정맥 확률</p>
+                        </div>
+                        <div class="col-md-4 chart_element">
+                          <p class="bcgtext">고혈압 확률</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="voice_guide">
+            <div>
+                <div class="voice_contents">
+                    <img class="icon" src="{% static 'images/voice_icon.png' %}">
+                    <img clas="bar" src="{% static 'images/voice_bar.png' %}">
+                    <p style="font-size: 1.3vw;">지니야, 총 수면 시간 알려줘</p>
                 </div>
             </div>
         </div>
     </div>   
 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script type="text/javascript" src="https://svcapi.gigagenie.ai/sdk/v1.0/js/gigagenie.js"></script>
     <script>
-        var ctx = document.getElementById('myChart');
-        var data = {{hr_hour}};
-        var labels = {{hr_labels}};
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      
+      
+      function drawChart() {
+        var font_size = screen.width / 100;
+        var card_width = $(".card_contents").width() / 4;
+        var card_height = $(".card_contents").height() / 4.5;
+        ///////////////////////////////////////////////////수면 분석////////////////////////////////////////////////////
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'wake',    'rem'],
+          ['2013',  10,      40],
+          ['2014',  11,      46],
+          ['2015',  66,       11],
+          ['2016',  10,      54]
+        ]);
+
+        var options = {
+          legend: 'none',
+          chartArea: {
+            left: '10%', top: '10%',
+            right: '0%', bottom: '10%',
+            width: '90%',
+            height: '90%',
+          },
+          tooltip: { trigger: 'none'},
+          backgroundColor: {
+            fillOpacity: 0
+          },
+          vAxis: {
+            gridlines: { count: 6, color: 'none'},
+            textStyle: {
+              color: 'rgb(114, 128, 180)',
+              fontSize: 15
+            }
+          },
+          hAxis: {
+            textStyle: {
+              color: 'rgb(114, 128, 180)',
+              fontSize: 15
+            },
+          },
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('sleepchart'));
+        chart.draw(data, options);
         
-        var myLineChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: '심박수',
-                    pointRadius: 0,
-                    fill : 'false',
-                    lineTension: 0,
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: data
-                }]
-            },
-            options: {
+        
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['',     30],
+          ['',     70]
+        ]);
 
+        var options = {
+          pieHole: 0.9,
+          pieSliceText: 'none',
+          width: card_width,
+          height: card_width,
+          chartArea: {
+            left: '5%',
+            top: '5%',
+            right: '5%',
+            bottom: '5%',
+            width: '90%',
+            height: '90%',
+          },
+          pieSliceBorderColor: 'transparent',
+          slices: {
+            0: { color: 'rgb(85, 93, 126)' },
+            1: { color: 'rgb(44, 206, 215)' }
+          },
+          tooltip: { trigger: 'none'},
+          legend: 'none',
+          backgroundColor: {
+            fillOpacity: 0
+          },
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('totalsleepchart'));
+        chart.draw(data, options);
+
+        var data = google.visualization.arrayToDataTable([
+          ['', ''],
+          ['',     30],
+          ['',     70]
+        ]);
+
+        var options = {
+          pieHole: 0.9,
+          pieSliceText: 'none',
+          width: card_width,
+          height: card_width,
+          chartArea: {
+            left: '5%',
+            top: '5%',
+            right: '5%',
+            bottom: '5%',
+            width: '90%',
+            height: '90%',
+          },
+          pieSliceBorderColor: 'transparent',
+          slices: {
+            0: { color: 'rgb(85, 93, 126)' },
+            1: { color: 'rgb(44, 206, 215)' }
+          },
+          tooltip: { trigger: 'none'},
+          legend: 'none',
+          backgroundColor: {
+            fillOpacity: 0
+          },
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('deepsleepchart'));
+        chart.draw(data, options);
+        /////////////////////////////////////////////생체 데이터/////////////////////////////////////////////////////
+
+        var data = google.visualization.arrayToDataTable([
+          ['time', 'hr',   'rr',  'sv',  'hrv'],
+          ['10',  1000,  400,   400,   100],
+          ['11',  1170,  460,   300,   300],
+          ['12',  660,   1120,  100,   400],
+          ['1',  1030,  540,   500,   1500],
+          ['2',  1000,  400,   400,   100],
+          ['3',  1170,  460,   300,   300],
+          ['4',  660,   1120,  100,   400],
+          ['5',  1030,  540,   500,   1500],
+          ['6',  1000,  400,   400,   100],
+          ['7',  1170,  460,   300,   300],
+          ['8',  660,   1120,  100,   400]
+        ]);
+
+        var options = {
+          legend: 'none',
+          chartArea: {
+            left: '10%', top: '10%',
+            right: '0%', bottom: '10%',
+            width: '90%',
+            height: '90%',
+          },
+          tooltip: { trigger: 'none'},
+          lineSize: font_size * 0.1,
+          pointShape : 'circle',
+          pointSize: font_size * 0.2,
+          backgroundColor: {
+            fillOpacity: 0
+          },
+          vAxis: {
+            gridlines: { count: 6, color: 'none'},
+            textStyle: {
+              color: 'rgb(114, 128, 180)',
+              fontSize: 15
             }
-        });
-
-        var ctx2 = document.getElementById('myChart2');
-        var ylabels = ['', '빈 침대', '깨어남', '숙면', '무호흡', ''].reverse();
-        var xlabels = [22, 23, 24, 1, 2, 3, 4, 5, 6, 7, 8];
-        var myLineChart2 = new Chart(ctx2, {
-            type: 'line',
-            data: {
-                xLabels: xlabels,
-                yLabels: ylabels,
-                datasets: [
-                {
-                    label: '무호흡',
-                    pointRadius: 0,
-                    fill: true,
-                    lineTension: 0,
-                    borderColor: '#FAED7D',
-                    backgroundColor: '#FAED7D',
-                    data: ['빈침대', '빈침대', '무호흡', '무호흡', '빈침대', '빈침대', '무호흡', '무호흡', '빈침대', '빈침대', '빈침대']
-                },
-                {
-                    label: '숙면',
-                    pointRadius: 0,
-                    fill: true,
-                    lineTension: 0,
-                    borderColor: '#4374D9',
-                    backgroundColor: '#4374D9',
-                    data: ['빈침대', '숙면', '숙면', '숙면', '숙면', '숙면', '숙면', '숙면', '숙면', '숙면', '빈침대']
-                },
-                {
-                    label: '깨어남',
-                    pointRadius: 0,
-                    fill: true,
-                    lineTension: 0,
-                    borderColor: '#FFBB00',
-                    backgroundColor: '#FFBB00',
-                    data: ['깨어남', '깨어남', '빈침대', '빈침대', '빈침대', '빈침대', '빈침대', '빈침대', '빈침대', '깨어남', '깨어남']
-                }
-                ]
-                
+          },
+          hAxis: {
+            textStyle: {
+              color: 'rgb(114, 128, 180)',
+              fontSize: 15
             },
-            options: {
-                responsive: true,
-                title: {
-                    display: true,
-                    text: '수면 무호흡 차트'
-                },
-                scales: {
-                    xAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: '시간'
-                        }
-                    }],
-                    yAxes: [{
-                        type: 'category',
-                        position: 'left',
-                        display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: '수면 상태'
-                        },
-                        ticks: {
-                            reverse: false
-                        }
-                    }]
-                }
-            }
-        });
+          },
+          colors: ['rgb(44, 206, 215)', 'rgb(187, 131, 231)', 'rgb(233, 139, 92)', 'rgb(103, 92, 248)']
+        };
 
-        var ctx3 = document.getElementById('myChart3');
+        var chart = new google.visualization.LineChart(document.getElementById('bcgchart'));
+        chart.draw(data, options);
+  
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['',     120 - {{hr_mean}}],
+          ['',     {{hr_mean}}]
+        ]);
+
+        var options = {
+          pieHole: 0.9,
+          pieSliceText: 'none',
+          width: card_width,
+          height: card_width,
+          chartArea: {
+            left: '5%',
+            top: '5%',
+            right: '5%',
+            bottom: '5%',
+            width: '90%',
+            height: '90%',
+          },
+          pieSliceBorderColor: 'transparent',
+          slices: {
+            0: { color: 'rgb(85, 93, 126)' },
+            1: { color: 'rgb(44, 206, 215)' }
+          },
+          tooltip: { trigger: 'none'},
+          legend: 'none',
+          backgroundColor: {
+            fillOpacity: 0
+          },
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('hrchart'));
+        chart.draw(data, options);
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['',     20-{{rr_mean}}],
+          ['',     {{rr_mean}}]
+        ]);
+
+        var options = {
+          pieHole: 0.9,
+          pieSliceText: 'none',
+          width: card_width,
+          height: card_width,
+          chartArea: {
+            left: '5%',
+            top: '5%',
+            right: '5%',
+            bottom: '5%',
+            width: '90%',
+            height: '90%',
+          },
+          pieSliceBorderColor: 'transparent',
+          slices: {
+            0: { color: 'rgb(85, 93, 126)' },
+            1: { color: 'rgb(187, 131, 231)' }
+          },
+          tooltip: { trigger: 'none'},
+          legend: 'none',
+          backgroundColor: {
+            fillOpacity: 0
+          },
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('rrchart'));
+        chart.draw(data, options);
+        
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['',     {{sv_mean}} / 4],
+          ['',     {{sv_mean}}]
+        ]);
+
+        var options = {
+          pieHole: 0.9,
+          pieSliceText: 'none',
+          width: card_width,
+          height: card_width,
+          chartArea: {
+            left: '5%',
+            top: '5%',
+            right: '5%',
+            bottom: '5%',
+            width: '90%',
+            height: '90%',
+          },
+          pieSliceBorderColor: 'transparent',
+          slices: {
+            0: { color: 'rgb(85, 93, 126)' },
+            1: { color: 'rgb(233, 139, 92)' }
+          },
+          tooltip: { trigger: 'none'},
+          legend: 'none',
+          backgroundColor: {
+            fillOpacity: 0
+          },
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('svchart'));
+        chart.draw(data, options);
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['',     {{hrv_mean}} / 4],
+          ['',     {{hrv_mean}}]
+        ]);
+
+        var options = {
+          pieHole: 0.9,
+          pieSliceText: 'none',
+          width: card_width,
+          height: card_width,
+          chartArea: {
+            left: '5%',
+            top: '5%',
+            right: '5%',
+            bottom: '5%',
+            width: '90%',
+            height: '90%',
+          },
+          pieSliceBorderColor: 'transparent',
+          slices: {
+            0: { color: 'rgb(85, 93, 126)' },
+            1: { color: 'rgb(103, 92, 248)' }
+          },
+          tooltip: { trigger: 'none'},
+          legend: 'none',
+          backgroundColor: {
+            fillOpacity: 0
+          },
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('hrvchart'));
+        chart.draw(data, options);
+
+        ///////////////////////////////////////////////////질병 모니터링////////////////////////////////////////////////////
+        var ctx3 = document.getElementById('radarchart');
         var bio_data = [{{hr_mean}},{{rr_mean}},{{sv_mean}},{{hrv_mean}},{{sdnn}},{{pnn50}},{{rmssd}}];
-        var bio_data_avg = [50,10,60,60,60,60,60];
+        var bio_data_avg = [40,40,40,40,40,40,40];
         var myLineChart3 = new Chart(ctx3, {
             type: 'radar',
             data: {
-				labels: ['심박수', '호흡수', '심박출량', '심박 변이도', 'SDNN', 'pNN50', 'RMSSD'],
-				datasets: [{
-					label: '자신의 평균',
-					backgroundColor: 'rgba(255, 99, 132, 0.2)',
-					borderColor:'rgb(255, 99, 132)',
-					pointBackgroundColor: 'rgb(255, 99, 132)',
-					data: bio_data
-				}, {
-					label: '50대 남자 평균 수치',
-					backgroundColor: "rgba(54, 162, 235, 0.2)",
-					borderColor: 'rgb(54, 162, 235)',
-					pointBackgroundColor: 'rgb(54, 162, 235)',
-					data: bio_data_avg
-				}]
-			},
-			options: {
-				legend: {
-					position: 'top',
-				},
-				title: {
-					display: true,
-					text: 'Chart.js Radar Chart'
-				},
-				scale: {
-					ticks: {
-						beginAtZero: true
-					}
-				}
-			}
+              labels: ['심박수', '호흡수', '심박출량', '심박 변이도', 'SDNN', 'pNN50', 'RMSSD'],
+              datasets: [{
+                label: '홍서영 님',
+                backgroundColor: 'rgba(233, 139, 92, 0.2)',
+                borderColor:'rgb(233, 139, 92)',
+                pointBackgroundColor: 'rgb(233, 139, 92)',
+                data: bio_data
+              }, {
+                label: '평균',
+                backgroundColor: "rgba(44, 206, 215, 0.2)",
+                borderColor: 'rgb(44, 206, 215)',
+                pointBackgroundColor: 'rgb(44, 206, 215)',
+                data: bio_data_avg
+              }]
+            },
+            options: {
+              legend: {
+                position: 'none',
+                labels: {
+                  fontColor: 'rgb(140, 153, 203)',
+                  fontSize: font_size * 0.7
+                }
+              },
+              title: {
+                display: false
+              },
+              scale: {
+                gridLines: {
+                  color: 'rgb(61, 72, 115)'
+                },
+                pointLabels: {
+                  fontColor: "rgb(140, 153, 203)",
+                  fontSize: font_size * 0.5
+                },
+                angleLines: {
+                    display: false
+                },
+                ticks: {
+                  beginAtZero: true,
+                  min: 0,
+                  max: 60,
+                  stepSize: 10,
+                  fontColor: 'rgb(140, 153, 203)',
+                  showLabelBackdrop: false
+                }
+              }
+            }
         });
-        </script>
+        
+        
+        
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['',     30],
+          ['',     70]
+        ]);
+      
+        var options = {
+          pieHole: 0.9,
+          pieSliceText: 'none',
+          width: card_width,
+          height: card_width,
+          chartArea: {
+            left: '5%',
+            top: '5%',
+            right: '5%',
+            bottom: '5%',
+            width: '90%',
+            height: '90%',
+          },
+          pieSliceBorderColor: 'transparent',
+          slices: {
+            0: { color: 'rgb(85, 93, 126)' },
+            1: { color: 'rgb(44, 206, 215)' }
+          },
+          tooltip: { trigger: 'none'},
+          legend: 'none',
+          backgroundColor: {
+            fillOpacity: 0
+          },
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('diabeteschart'));
+        chart.draw(data, options);
+
+        var data = google.visualization.arrayToDataTable([
+          ['', ''],
+          ['',     30],
+          ['',     70]
+        ]);
+
+        var options = {
+          pieHole: 0.9,
+          pieSliceText: 'none',
+          width: card_width,
+          height: card_width,
+          chartArea: {
+            left: '5%',
+            top: '5%',
+            right: '5%',
+            bottom: '5%',
+            width: '90%',
+            height: '90%',
+          },
+          pieSliceBorderColor: 'transparent',
+          slices: {
+            0: { color: 'rgb(85, 93, 126)' },
+            1: { color: 'rgb(233, 139, 92)' }
+          },
+          tooltip: { trigger: 'none'},
+          legend: 'none',
+          backgroundColor: {
+            fillOpacity: 0
+          },
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('arrhythmiachart'));
+        chart.draw(data, options);
+
+        var data = google.visualization.arrayToDataTable([
+          ['', ''],
+          ['',     30],
+          ['',     70]
+        ]);
+
+        var options = {
+          pieHole: 0.9,
+          pieSliceText: 'none',
+          width: card_width,
+          height: card_width,
+          chartArea: {
+            left: '5%',
+            top: '5%',
+            right: '5%',
+            bottom: '5%',
+            width: '90%',
+            height: '90%',
+          },
+          pieSliceBorderColor: 'transparent',
+          slices: {
+            0: { color: 'rgb(85, 93, 126)' },
+            1: { color: 'rgb(103, 92, 248)' }
+          },
+          tooltip: { trigger: 'none'},
+          legend: 'none',
+          backgroundColor: {
+            fillOpacity: 0
+          }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('highbloodchart'));
+        chart.draw(data, options);
+      }
+    </script>
 </body>
 
 

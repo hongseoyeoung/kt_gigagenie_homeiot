@@ -2,64 +2,443 @@
 {% load staticfiles %}
 {% block contents %}
 <head>
-    <style>
-        .list {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            height: 50%;
-            margin: 10% auto;
-        }
-        ul {
-            
-            height: auto;
-            margin-top: auto;
-            margin-bottom: auto;
-            
-        }
-        li {
-            width: 200px;
-            height: 100px;
-            text-align: center;
-
-            list-style: none;
-            border: black 1px solid;
-        }    
-    </style>
+    <link rel="stylesheet" href="{% static 'css/statistic_sub.css'%}">
 </head>
-<body>
-    <div class="fluid-container">
-        <div class="row">
-            <div class="col-md-2">
-                <div class="list">
-                <ul>
-                    <li>
-                        <a href="">   
-                            심박수
+<body style="padding: 8px 15px;">
+    <div class="container-fluid">
+        <div class="headline">
+            <a class="back" href="{% url 'statistic' %}">
+                <img src="{% static 'images/back.png' %}">
+            </a>
+            <p class="headline_title"><span style="font-size:1.5vw ">통계 - </span>생체 정보</p>
+        </div>
+        <div class="contents">
+           <div class="classification">
+               <ul class="date_list">
+                   <li class="date">
+                        <a class="date_button selected" href=".day">
+                            <p>일간</p>
+                        </a>
+                   </li>
+                   <li class="date">
+                        <a class="date_button" href=".week">
+                            <p>주간</p>
+                        </a>
+                   </li>
+                   <li class="date">
+                        <a class="date_button" href=".month">
+                            <p>월간</p>
+                        </a>
+                   </li>
+                   <li class="date">
+                        <a class="calendar_button" href="">
+                            <div>
+                                <img src="{% static 'images/calendar.png' %}" id="calendar">
+                            </div>
                         </a>
                     </li>
-                    <li>
-                        <a href="">   
-                            호흡수
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">   
-                            심박출량
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">   
-                            심박변이도
-                        </a>
-                    </li>
-                </ul>
+               </ul>
+           </div>
+           <div class="main_contents">
+                <div class="main_container">
+                    <a class="btn btn_prev" href="javascript:void(0);"></a> 
+                    <a class="btn btn_next" href="javascript:void(0);"></a>
+                    <ul class="contents_wrapper" style="height: 95%;">
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">심박 변이도</p>
+                                    <p class="card_date">2020.01.09 ~ 2020.01.15</p>
+                                </div>
+                                <div class="day tabPage" id="hrvday">
+                                    <div class="card_contents">
+                                        <div class="graph">
+                                          <div class="big_chart" id="hrvchart"></div>
+                                        </div>
+                                        <div class="speechbubble">
+                                          <div class="triangle"></div>
+                                          <div class="bubblecontents">
+                                              <p id="explain"style="font-size: 1vw; font-style: bold; color:white">
+                                                심박변이도에 대한 설명설명 설명 <br>
+                                                정상 범위는 00부터 00까지로 현재 평균입니다.
+                                                등등
+                                              </p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="week tabPage" id="hrvweek">
+                                    b
+                                </div>
+                                <div class="month tabPage" id="hrvmonth">
+                                    c
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">심박수</p>
+                                    <p class="card_date">2020.01.09 ~ 2020.01.15</p>
+                                </div>
+                                <div class="day tabPage" id="hrday">
+                                    <div class="card_contents">
+                                        <div class="graph">
+                                          <div class="big_chart" id="hrchart"></div>
+                                        </div>
+                                        <div class="speechbubble">
+                                          <div class="triangle"></div>
+                                          <div class="bubblecontents">
+                                              <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                                심박수에 대한 설명설명 설명 <br>
+                                                정상 범위는 00부터 00까지로 현재 평균입니다.
+                                                등등
+                                              </p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="week tabPage" id="hrweek">
+                                    b
+                                </div>
+                                <div class="month tabPage" id="hrmonth">
+                                    c
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">호흡수</p>
+                                    <p class="card_date">2020.01.09 ~ 2020.01.15</p>
+                                </div>
+                                <div class="day tabPage" id="rrday">
+                                    <div class="card_contents">
+                                        <div class="graph">
+                                          <div class="big_chart" id="rrchart"></div>
+                                        </div>
+                                        <div class="speechbubble">
+                                          <div class="triangle"></div>
+                                          <div class="bubblecontents">
+                                              <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                                호흡수에 대한 설명설명 설명 <br>
+                                                정상 범위는 00부터 00까지로 현재 평균입니다.
+                                                등등
+                                              </p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="week tabPage" id="rrweek">
+                                    b
+                                </div>
+                                <div class="month tabPage" id="rrmonth">
+                                    c
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">심박 출량</p>
+                                    <p class="card_date">2020.01.09 ~ 2020.01.15</p>
+                                </div>
+                                <div class="day tabPage" id="svday">
+                                    <div class="card_contents">
+                                        <div class="graph">
+                                          <div class="big_chart" id="svchart"></div>
+                                        </div>
+                                        <div class="speechbubble">
+                                          <div class="triangle"></div>
+                                          <div class="bubblecontents">
+                                              <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                                심박 출량에 대한 설명설명 설명 <br>
+                                                정상 범위는 00부터 00까지로 현재 평균입니다.
+                                                등등
+                                              </p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="week tabPage" id="svweek">
+                                    b
+                                </div>
+                                <div class="month tabPage" id="svmonth">
+                                    c
+                                </div>
+                            </div>
+                        </li>
+                      </ul>
                 </div>
-            </div>
-            <div class="col-md-10">
-                sdffgsdfsdf
+           </div>
+        </div>
+        <div class="voice_guide">
+            <div>
+                <div class="voice_contents">
+                    <img class="icon" src="{% static 'images/voice_icon.png' %}">
+                    <img clas="bar" src="{% static 'images/voice_bar.png' %}">
+                    <p style="font-size: 1.3vw;">지니야, 총 수면 시간 알려줘</p>
+                </div>
             </div>
         </div>
     </div>
+    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/modernizr.custom.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/statistic_sub.js' %}"></script>
+    <script type="text/javascript">
+        $('.contents_wrapper').responsiveGallery({
+            animatDuration: 400, 
+            $btn_prev: $('.btn_prev'),
+            $btn_next: $('.btn_next')
+        });
+
+        function tabSetting() {
+            // 탭 컨텐츠 hide 후 현재 탭메뉴 페이지만 show
+            $('.tabPage').hide();
+            $($('.selected').attr('href')).show();
+        
+            // Tab 메뉴 클릭 이벤트 생성
+            $('.date_button').click(function (event) {
+                var tagName = event.target.tagName; // 현재 선택된 태그네임
+                var selectedATag;
+                if (tagName.toString() == "li") {
+                    selectedATag = $(event.target).children('A');
+                }
+                else if ( tagName.toString() == "P") {
+                    selectedATag =  $(event.target).parent('A');
+                }
+                else {
+                    selectedATag = $(event.target);
+                }
+                var currentATag = $('a[class~=selected]'); // 현재 selected 클래그를 가진 탭
+                var isCurrent = false;  
+                    
+                // 현재 클릭된 탭이 selected를 가졌는지 확인
+                isCurrent = $(selectedATag).hasClass('selected');
+                    
+                // selectedf를 가지지 않았을 경우만 실행
+                if (!isCurrent) {
+                    $($(currentATag).attr('href')).hide();
+                    $(currentATag).removeClass('selected');
+        
+                    $(selectedATag).addClass('selected');
+                    $($(selectedATag).attr('href')).show();
+                }
+        
+                return false;
+            });
+		}
+		 
+        $(function () {
+            // 탭 초기화 및 설정
+            tabSetting();
+        });
+
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+          var font_size = screen.width / 100;
+          var data = google.visualization.arrayToDataTable([
+            ['time', 'hr'],
+            ['10',  60],
+            ['11',  70],
+            ['12',  66],
+            ['1',  48],
+            ['2',  50],
+            ['3',  51],
+            ['4',  55],
+            ['5',  47],
+            ['6',  53],
+            ['7',  59],
+            ['8',  66]
+          ]);
+
+          var options = {
+            legend: 'none',
+            chartArea: {
+              left: '10%', top: '10%',
+              right: '0%', bottom: '10%',
+              width: '90%',
+              height: '90%',
+            },
+            tooltip: { trigger: 'none'},
+            lineSize: font_size * 0.1,
+            pointShape : 'circle',
+            pointSize: font_size * 0.2,
+            backgroundColor: {
+              fillOpacity: 0
+            },
+            vAxis: {
+              gridlines: { count: 6, color: 'none'},
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              }
+            },
+            hAxis: {
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              },
+            },
+            colors: ['rgb(44, 206, 215)']
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('hrchart'));
+          chart.draw(data, options);
+
+          var data = google.visualization.arrayToDataTable([
+            ['time', 'hr'],
+            ['10',  60],
+            ['11',  70],
+            ['12',  66],
+            ['1',  48],
+            ['2',  50],
+            ['3',  51],
+            ['4',  55],
+            ['5',  47],
+            ['6',  53],
+            ['7',  59],
+            ['8',  66]
+          ]);
+
+          var options = {
+            legend: 'none',
+            chartArea: {
+              left: '10%', top: '10%',
+              right: '0%', bottom: '10%',
+              width: '90%',
+              height: '90%',
+            },
+            tooltip: { trigger: 'none'},
+            lineSize: font_size * 0.1,
+            pointShape : 'circle',
+            pointSize: font_size * 0.2,
+            backgroundColor: {
+              fillOpacity: 0
+            },
+            vAxis: {
+              gridlines: { count: 6, color: 'none'},
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              }
+            },
+            hAxis: {
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              },
+            },
+            colors: ['rgb(187, 131, 231)']
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('rrchart'));
+          chart.draw(data, options);
+  
+
+          var data = google.visualization.arrayToDataTable([
+            ['time', 'hr'],
+            ['10',  60],
+            ['11',  70],
+            ['12',  66],
+            ['1',  48],
+            ['2',  50],
+            ['3',  51],
+            ['4',  55],
+            ['5',  47],
+            ['6',  53],
+            ['7',  59],
+            ['8',  66]
+          ]);
+
+          var options = {
+            legend: 'none',
+            chartArea: {
+              left: '10%', top: '10%',
+              right: '0%', bottom: '10%',
+              width: '90%',
+              height: '90%',
+            },
+            tooltip: { trigger: 'none'},
+            lineSize: font_size * 0.1,
+            pointShape : 'circle',
+            pointSize: font_size * 0.2,
+            backgroundColor: {
+              fillOpacity: 0
+            },
+            vAxis: {
+              gridlines: { count: 6, color: 'none'},
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              }
+            },
+            hAxis: {
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              },
+            },
+            colors: ['rgb(233, 139, 92)']
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('svchart'));
+          chart.draw(data, options);
+  
+
+          var data = google.visualization.arrayToDataTable([
+            ['time', 'hr'],
+            ['10',  60],
+            ['11',  70],
+            ['12',  66],
+            ['1',  48],
+            ['2',  50],
+            ['3',  51],
+            ['4',  55],
+            ['5',  47],
+            ['6',  53],
+            ['7',  59],
+            ['8',  66]
+          ]);
+
+          var options = {
+            legend: 'none',
+            chartArea: {
+              left: '10%', top: '10%',
+              right: '0%', bottom: '10%',
+              width: '90%',
+              height: '90%',
+            },
+            tooltip: { trigger: 'none'},
+            lineSize: font_size * 0.1,
+            pointShape : 'circle',
+            pointSize: font_size * 0.2,
+            backgroundColor: {
+              fillOpacity: 0
+            },
+            vAxis: {
+              gridlines: { count: 6, color: 'none'},
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              }
+            },
+            hAxis: {
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              },
+            },
+            colors: ['rgb(103, 92, 248)']
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('hrvchart'));
+          chart.draw(data, options);
+        }
+    </script>
 </body>
 {% endblock %}

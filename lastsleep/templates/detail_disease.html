@@ -1,21 +1,248 @@
+{% extends 'sidebar.html' %}
+{% load staticfiles %}
+{% block contents %}
 <head>
-    <!-- 합쳐지고 최소화된 최신 CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-    <!-- 부가적인 테마 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-
+    <link rel="stylesheet" href="{% static 'css/detail.css'%}">
 </head>
-<body>
-    <h1>상세 질병 정보 화면</h1>
-    <button class="btn btn-default">sdfsdfsdf</button>
+<body style="padding: 8px 15px;">
+    <div class="container-fluid">
+        <div class="headline">
+            <a class="back" href="{% url 'lastsleep' %}">
+                <img src="{% static 'images/back.png' %}">
+            </a>
+            <p class="headline_title"><span style="font-size:1.5vw ">지난 밤 수면 분석 - </span>질병 모니터링</p>
+        </div>
+        <div class="contents">
+           <div class="main_contents">
+                <div class="main_container">
+                    <a class="btn btn_prev" href="javascript:void(0);"></a> 
+                    <a class="btn btn_next" href="javascript:void(0);"></a>
+                    <ul class="contents_wrapper" style="height: 95%;">
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">부정맥</p>
+                                </div>
+                               <div class="card_contents">
+                                  <div class="graph">
+                                    <canvas class="big_chart" id="arrhychart1"></canvas>
+                                  </div>
+                                  <div class="speechbubble">
+                                    <div class="triangle"></div>
+                                    <div class="bubblecontents">
+                                        <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                          부정맥에 대한 설명설명 설명 <br>
+                                          부정맥일 확률이 00입니다. 
+                                          등등
+                                        </p>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">당뇨</p>
+                                </div>
+                                <div class="card_contents">
+                                    <div class="graph">
+                                      <canvas class="big_chart" id="diabeteschart1"></canvas>
+                                    </div>
+                                    <div class="speechbubble">
+                                      <div class="triangle"></div>
+                                      <div class="bubblecontents">
+                                          <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                            당뇨에 대한 설명설명 설명 <br>
+                                            당뇨일 확률이 00입니다. 
+                                            등등
+                                          </p>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">고혈압</p>
+                                </div>
+                                <div class="card_contents">
+                                    <div class="graph">
+                                      <canvas class="big_chart" id="highbloodchart1"></canvas>
+                                    </div>
+                                    <div class="speechbubble">
+                                      <div class="triangle"></div>
+                                      <div class="bubblecontents">
+                                          <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                            고혈압에 대한 설명설명 설명 <br>
+                                            당뇨일 확률이 00입니다. 
+                                            등등
+                                          </p>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">부정맥</p>
+                                </div>
+                                <div class="card_contents">
+                                  <div class="graph">
+                                    <canvas class="big_chart" id="arrhychart2"></canvas>
+                                  </div>
+                                  <div class="speechbubble">
+                                    <div class="triangle"></div>
+                                    <div class="bubblecontents">
+                                        <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                          부정맥에 대한 설명설명 설명 <br>
+                                          부정맥일 확률이 00입니다. 
+                                          등등
+                                        </p>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">당뇨</p>
+                                </div>
+                                <div class="card_contents">
+                                    <div class="graph">
+                                      <canvas class="big_chart" id="diabeteschart2"></canvas>
+                                    </div>
+                                    <div class="speechbubble">
+                                      <div class="triangle"></div>
+                                      <div class="bubblecontents">
+                                          <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                            당뇨에 대한 설명설명 설명 <br>
+                                            당뇨일 확률이 00입니다. 
+                                            등등
+                                          </p>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">고혈압</p>
+                                </div>
+                                <div class="card_contents">
+                                    <div class="graph">
+                                      <canvas class="big_chart" id="highbloodchart2"></canvas>
+                                    </div>
+                                    <div class="speechbubble">
+                                      <div class="triangle"></div>
+                                      <div class="bubblecontents">
+                                          <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                            고혈압에 대한 설명설명 설명 <br>
+                                            당뇨일 확률이 00입니다. 
+                                            등등
+                                          </p>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>   
+                </div>
+           </div>
+        </div>
+        <div class="voice_guide">
+            <div>
+                <div class="voice_contents">
+                    <img class="icon" src="{% static 'images/voice_icon.png' %}">
+                    <img clas="bar" src="{% static 'images/voice_bar.png' %}">
+                    <p style="font-size: 1.3vw;">지니야, 총 수면 시간 알려줘</p>
+                </div>
+            </div>
+        </div>
+    </div>
     
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/modernizr.custom.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/statistic_sub.js' %}"></script>
+    <script type="text/javascript">
+        $('.contents_wrapper').responsiveGallery({
+            animatDuration: 400, 
+            $btn_prev: $('.btn_prev'),
+            $btn_next: $('.btn_next')
+        });
 
-
-
-
-    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        var font_size = screen.width / 100;
+        
+        var bio_data = [{{hr_mean}},{{rr_mean}},{{sv_mean}},{{hrv_mean}},{{sdnn}},{{pnn50}},{{rmssd}}];
+        var bio_data_avg = [40,40,40,40,40,40,40];
+        var options = {
+            type: 'radar',
+            data: {
+            labels: ['심박수', '호흡수', '심박출량', '심박 변이도', 'SDNN', 'pNN50', 'RMSSD'],
+            datasets: [{
+                label: '홍서영 님',
+                backgroundColor: 'rgba(233, 139, 92, 0.2)',
+                borderColor:'rgb(233, 139, 92)',
+                pointBackgroundColor: 'rgb(233, 139, 92)',
+                data: bio_data
+            }, {
+                label: '평균',
+                backgroundColor: "rgba(44, 206, 215, 0.2)",
+                borderColor: 'rgb(44, 206, 215)',
+                pointBackgroundColor: 'rgb(44, 206, 215)',
+                data: bio_data_avg
+            }]
+            },
+            options: {
+            legend: {
+                position: 'none',
+                labels: {
+                fontColor: 'rgb(140, 153, 203)',
+                fontSize: font_size * 0.7
+                }
+            },
+            title: {
+                display: false
+            },
+            scale: {
+                gridLines: {
+                color: 'rgb(61, 72, 115)'
+                },
+                pointLabels: {
+                fontColor: "rgb(140, 153, 203)",
+                fontSize: font_size * 0.5
+                },
+                angleLines: {
+                    display: false
+                },
+                ticks: {
+                beginAtZero: true,
+                min: 0,
+                max: 60,
+                stepSize: 10,
+                fontColor: 'rgb(140, 153, 203)',
+                showLabelBackdrop: false
+                }
+            }
+            }
+        }
+        var ctx = document.getElementById('arrhychart1');
+        var myLineChart3 = new Chart(ctx, options);
+        var ctx = document.getElementById('arrhychart2');
+        var myLineChart3 = new Chart(ctx, options);
+        var ctx = document.getElementById('diabeteschart1');
+        var myLineChart3 = new Chart(ctx, options);
+        var ctx = document.getElementById('diabeteschart2');
+        var myLineChart3 = new Chart(ctx, options);
+        var ctx = document.getElementById('highbloodchart1');
+        var myLineChart3 = new Chart(ctx, options);
+        var ctx = document.getElementById('highbloodchart2');
+        var myLineChart3 = new Chart(ctx, options);
+</script>
 </body>
-
+{% endblock %}

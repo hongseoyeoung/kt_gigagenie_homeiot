@@ -1,5 +1,370 @@
 {% extends 'sidebar.html' %}
 {% load staticfiles %}
 {% block contents %}
-<h1>질병</h1>
+<head>
+    <link rel="stylesheet" href="{% static 'css/statistic_sub.css'%}">
+</head>
+<body style="padding: 8px 15px;">
+    <div class="container-fluid">
+        <div class="headline">
+            <a class="back" href="{% url 'statistic' %}">
+                <img src="{% static 'images/back.png' %}">
+            </a>
+            <p class="headline_title"><span style="font-size:1.5vw ">통계 - </span>질병 모니터링</p>
+        </div>
+        <div class="contents">
+           <div class="classification">
+               <ul class="date_list">
+                   <li class="date">
+                        <a class="date_button selected" href=".day">
+                            <p>일간</p>
+                        </a>
+                   </li>
+                   <li class="date">
+                        <a class="date_button" href=".week">
+                            <p>주간</p>
+                        </a>
+                   </li>
+                   <li class="date">
+                        <a class="date_button" href=".month">
+                            <p>월간</p>
+                        </a>
+                   </li>
+                   <li class="date">
+                        <a class="calendar_button" href="">
+                            <div>
+                                <img src="{% static 'images/calendar.png' %}" id="calendar">
+                            </div>
+                        </a>
+                    </li>
+               </ul>
+           </div>
+           <div class="main_contents">
+                <div class="main_container">
+                    <a class="btn btn_prev" href="javascript:void(0);"></a> 
+                    <a class="btn btn_next" href="javascript:void(0);"></a>
+                    <ul class="contents_wrapper" style="height: 95%;">
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">부정맥</p>
+                                    <p class="card_date">2020.01.09 ~ 2020.01.15</p>
+                                </div>
+                                <div class="day tabPage" id="hrvday">
+                                    <div class="card_contents">
+                                        <div class="graph">
+                                          <canvas class="big_chart" id="arrhychart1"></canvas>
+                                        </div>
+                                        <div class="speechbubble">
+                                          <div class="triangle"></div>
+                                          <div class="bubblecontents">
+                                              <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                                부정맥에 대한 설명설명 설명 <br>
+                                                부정맥일 확률이 00입니다. 
+                                                등등
+                                              </p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="week tabPage" id="hrvweek">
+                                    b
+                                </div>
+                                <div class="month tabPage" id="hrvmonth">
+                                    c
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">당뇨</p>
+                                    <p class="card_date">2020.01.09 ~ 2020.01.15</p>
+                                </div>
+                                <div class="day tabPage" id="hrday">
+                                    <div class="card_contents">
+                                        <div class="graph">
+                                          <canvas class="big_chart" id="diabeteschart1"></canvas>
+                                        </div>
+                                        <div class="speechbubble">
+                                          <div class="triangle"></div>
+                                          <div class="bubblecontents">
+                                              <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                                당뇨에 대한 설명설명 설명 <br>
+                                                당뇨일 확률이 00입니다. 
+                                                등등
+                                              </p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="week tabPage" id="hrweek">
+                                    b
+                                </div>
+                                <div class="month tabPage" id="hrmonth">
+                                    c
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">고혈압</p>
+                                    <p class="card_date">2020.01.09 ~ 2020.01.15</p>
+                                </div>
+                                <div class="day tabPage" id="rrday">
+                                    <div class="card_contents">
+                                        <div class="graph">
+                                          <canvas class="big_chart" id="highbloodchart1"></canvas>
+                                        </div>
+                                        <div class="speechbubble">
+                                          <div class="triangle"></div>
+                                          <div class="bubblecontents">
+                                              <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                                고혈압에 대한 설명설명 설명 <br>
+                                                당뇨일 확률이 00입니다. 
+                                                등등
+                                              </p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="week tabPage" id="rrweek">
+                                    b
+                                </div>
+                                <div class="month tabPage" id="rrmonth">
+                                    c
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">부정맥</p>
+                                    <p class="card_date">2020.01.09 ~ 2020.01.15</p>
+                                </div>
+                                <div class="day tabPage" id="svday">
+                                    <div class="card_contents">
+                                        <div class="graph">
+                                          <canvas class="big_chart" id="arrhychart2"></canvas>
+                                        </div>
+                                        <div class="speechbubble">
+                                          <div class="triangle"></div>
+                                          <div class="bubblecontents">
+                                              <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                                부정맥에 대한 설명설명 설명 <br>
+                                                부정맥일 확률이 00입니다. 
+                                                등등
+                                              </p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="week tabPage" id="svweek">
+                                    b
+                                </div>
+                                <div class="month tabPage" id="svmonth">
+                                    c
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">당뇨</p>
+                                    <p class="card_date">2020.01.09 ~ 2020.01.15</p>
+                                </div>
+                                <div class="day tabPage" id="hrday">
+                                    <div class="card_contents">
+                                        <div class="graph">
+                                          <canvas class="big_chart" id="diabeteschart2"></canvas>
+                                        </div>
+                                        <div class="speechbubble">
+                                          <div class="triangle"></div>
+                                          <div class="bubblecontents">
+                                              <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                                당뇨에 대한 설명설명 설명 <br>
+                                                당뇨일 확률이 00입니다. 
+                                                등등
+                                              </p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="week tabPage" id="hrweek">
+                                    b
+                                </div>
+                                <div class="month tabPage" id="hrmonth">
+                                    c
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">고혈압</p>
+                                    <p class="card_date">2020.01.09 ~ 2020.01.15</p>
+                                </div>
+                                <div class="day tabPage" id="rrday">
+                                    <div class="card_contents">
+                                        <div class="graph">
+                                          <canvas class="big_chart" id="highbloodchart2"></canvas>
+                                        </div>
+                                        <div class="speechbubble">
+                                          <div class="triangle"></div>
+                                          <div class="bubblecontents">
+                                              <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                                고혈압에 대한 설명설명 설명 <br>
+                                                당뇨일 확률이 00입니다. 
+                                                등등
+                                              </p>
+                                          </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="week tabPage" id="rrweek">
+                                    b
+                                </div>
+                                <div class="month tabPage" id="rrmonth">
+                                    c
+                                </div>
+                            </div>
+                        </li>
+                      </ul>
+                </div>
+           </div>
+        </div>
+        <div class="voice_guide">
+            <div>
+                <div class="voice_contents">
+                    <img class="icon" src="{% static 'images/voice_icon.png' %}">
+                    <img clas="bar" src="{% static 'images/voice_bar.png' %}">
+                    <p style="font-size: 1.3vw;">지니야, 총 수면 시간 알려줘</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/modernizr.custom.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/statistic_sub.js' %}"></script>
+    <script type="text/javascript">
+        $('.contents_wrapper').responsiveGallery({
+            animatDuration: 400, 
+            $btn_prev: $('.btn_prev'),
+            $btn_next: $('.btn_next')
+        });
+
+        function tabSetting() {
+            // 탭 컨텐츠 hide 후 현재 탭메뉴 페이지만 show
+            $('.tabPage').hide();
+            $($('.selected').attr('href')).show();
+        
+            // Tab 메뉴 클릭 이벤트 생성
+            $('.date_button').click(function (event) {
+                var tagName = event.target.tagName; // 현재 선택된 태그네임
+                var selectedATag;
+                if (tagName.toString() == "li") {
+                    selectedATag = $(event.target).children('A');
+                }
+                else if ( tagName.toString() == "P") {
+                    selectedATag =  $(event.target).parent('A');
+                }
+                else {
+                    selectedATag = $(event.target);
+                }
+                var currentATag = $('a[class~=selected]'); // 현재 selected 클래그를 가진 탭
+                var isCurrent = false;  
+                    
+                // 현재 클릭된 탭이 selected를 가졌는지 확인
+                isCurrent = $(selectedATag).hasClass('selected');
+                    
+                // selectedf를 가지지 않았을 경우만 실행
+                if (!isCurrent) {
+                    $($(currentATag).attr('href')).hide();
+                    $(currentATag).removeClass('selected');
+        
+                    $(selectedATag).addClass('selected');
+                    $($(selectedATag).attr('href')).show();
+                }
+        
+                return false;
+            });
+		}
+		 
+        $(function () {
+            // 탭 초기화 및 설정
+            tabSetting();
+        });
+
+        var font_size = screen.width / 100;
+        
+        var bio_data = [{{hr_mean}},{{rr_mean}},{{sv_mean}},{{hrv_mean}},{{sdnn}},{{pnn50}},{{rmssd}}];
+        var bio_data_avg = [40,40,40,40,40,40,40];
+        var options = {
+            type: 'radar',
+            data: {
+            labels: ['심박수', '호흡수', '심박출량', '심박 변이도', 'SDNN', 'pNN50', 'RMSSD'],
+            datasets: [{
+                label: '홍서영 님',
+                backgroundColor: 'rgba(233, 139, 92, 0.2)',
+                borderColor:'rgb(233, 139, 92)',
+                pointBackgroundColor: 'rgb(233, 139, 92)',
+                data: bio_data
+            }, {
+                label: '평균',
+                backgroundColor: "rgba(44, 206, 215, 0.2)",
+                borderColor: 'rgb(44, 206, 215)',
+                pointBackgroundColor: 'rgb(44, 206, 215)',
+                data: bio_data_avg
+            }]
+            },
+            options: {
+            legend: {
+                position: 'none',
+                labels: {
+                fontColor: 'rgb(140, 153, 203)',
+                fontSize: font_size * 0.7
+                }
+            },
+            title: {
+                display: false
+            },
+            scale: {
+                gridLines: {
+                color: 'rgb(61, 72, 115)'
+                },
+                pointLabels: {
+                fontColor: "rgb(140, 153, 203)",
+                fontSize: font_size * 0.5
+                },
+                angleLines: {
+                    display: false
+                },
+                ticks: {
+                beginAtZero: true,
+                min: 0,
+                max: 60,
+                stepSize: 10,
+                fontColor: 'rgb(140, 153, 203)',
+                showLabelBackdrop: false
+                }
+            }
+            }
+        }
+        var ctx = document.getElementById('arrhychart1');
+        var myLineChart3 = new Chart(ctx, options);
+        var ctx = document.getElementById('arrhychart2');
+        var myLineChart3 = new Chart(ctx, options);
+        var ctx = document.getElementById('diabeteschart1');
+        var myLineChart3 = new Chart(ctx, options);
+        var ctx = document.getElementById('diabeteschart2');
+        var myLineChart3 = new Chart(ctx, options);
+        var ctx = document.getElementById('highbloodchart1');
+        var myLineChart3 = new Chart(ctx, options);
+        var ctx = document.getElementById('highbloodchart2');
+        var myLineChart3 = new Chart(ctx, options);
+    </script>
+</body>
 {% endblock %}

@@ -1,172 +1,339 @@
 {% extends 'sidebar.html' %}
-
-{% block contents %}
-
 {% load staticfiles %}
+{% block contents %}
 <head>
-  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-responsiveGallery.css' %}">
-	<style type="text/css">
-		html{
-			background-color: #fff;
-		}
-		.w-gallery{
-			margin-top: 10px;
-		}
-    h1 {
-      font-size: 2em;
-    }
-    .contents {
-      padding: 10px 10px;
-    }
-	</style>
+    <link rel="stylesheet" href="{% static 'css/detail.css'%}">
 </head>
-<body>
-
-<div class="w-gallery" >
-  <section id="responsiveGallery-container" class="responsiveGallery-container" >
-   <div style="background: coral; width:100%; height:100px">dsfdsfsdfsd</div>
-   <a class="responsiveGallery-btn responsiveGallery-btn_prev" href="javascript:void(0);"></a> 
-   <a class="responsiveGallery-btn responsiveGallery-btn_next" href="javascript:void(0);"></a>
-    <ul class="responsiveGallery-wrapper" style="height: 95%;">
-      <li class="responsiveGallery-item"> 
-        <div class="responsivGallery-link">
-          <div class="contents">
-            <h1>4. 심박출량</h1>
-          </div>
+<body style="padding: 8px 15px;">
+    <div class="container-fluid">
+        <div class="headline">
+            <a class="back" href="{% url 'lastsleep' %}">
+                <img src="{% static 'images/back.png' %}">
+            </a>
+            <p class="headline_title"><span style="font-size:1.5vw ">지난 밤 수면 분석 - </span>생체 정보</p>
         </div>
-        <div class="w-responsivGallery-info">
-          <h2 class="responsivGallery-name">심박출량</h2>
-          <h3 class="responsivGallery-position"></h3>
+        <div class="contents">
+           <div class="main_contents">
+                <div class="main_container">
+                    <a class="btn btn_prev" href="javascript:void(0);"></a> 
+                    <a class="btn btn_next" href="javascript:void(0);"></a>
+                    <ul class="contents_wrapper" style="height: 95%;">
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">심박 변이도</p>
+                                </div>
+                               <div class="card_contents">
+                                  <div class="graph">
+                                    <div class="big_chart" id="hrvchart"></div>
+                                  </div>
+                                  <div class="speechbubble">
+                                    <div class="triangle"></div>
+                                    <div class="bubblecontents">
+                                        <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                          심박변이도에 대한 설명설명 설명 <br>
+                                          정상 범위는 00부터 00까지로 현재 평균입니다.
+                                          등등
+                                        </p>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">심박수</p>
+                                </div>
+                                <div class="card_contents">
+                                    <div class="graph">
+                                      <div class="big_chart" id="hrchart"></div>
+                                    </div>
+                                    <div class="speechbubble">
+                                      <div class="triangle"></div>
+                                      <div class="bubblecontents">
+                                          <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                            심박수에 대한 설명설명 설명 <br>
+                                            정상 범위는 00부터 00까지로 현재 평균입니다.
+                                            등등
+                                          </p>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">호흡수</p>
+                                </div>
+                                <div class="card_contents">
+                                    <div class="graph">
+                                      <div class="big_chart" id="rrchart"></div>
+                                    </div>
+                                    <div class="speechbubble">
+                                      <div class="triangle"></div>
+                                      <div class="bubblecontents">
+                                          <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                            호흡수에 대한 설명설명 설명 <br>
+                                            정상 범위는 00부터 00까지로 현재 평균입니다.
+                                            등등
+                                          </p>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item"> 
+                            <div class="responsivGallery-link">
+                                <div class="card_head">
+                                    <p class="card_title">심박 출량</p>
+                                </div>
+                                <div class="card_contents">
+                                    <div class="graph">
+                                      <div class="big_chart" id="svchart"></div>
+                                    </div>
+                                    <div class="speechbubble">
+                                      <div class="triangle"></div>
+                                      <div class="bubblecontents">
+                                          <p id="explain"style="font-size: 1vw; font-style: bold; color:white ">
+                                            심박 출량에 대한 설명설명 설명 <br>
+                                            정상 범위는 00부터 00까지로 현재 평균입니다.
+                                            등등
+                                          </p>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                      </ul>
+                </div>
+           </div>
         </div>
-      </li>
-      <li class="responsiveGallery-item"> 
-        <div class="responsivGallery-link">
-          <div class="contents">
-            <h1>5. 심박 변이도</h1>
-          </div>
-        </div>
-        <div class="w-responsivGallery-info">
-          <h2 class="responsivGallery-name">심박 변이도</h2>
-          <h3 class="responsivGallery-position"></h3>
-        </div>
-      </li>
-      <li class="responsiveGallery-item"> 
-        <div class="responsivGallery-link">
-          <div class="contents">
-            <h1>1. 생체 정보 요약</h1>
-            <br>
-            <table class="table table-hover">
-                <tr>
-                    <th>심박수 평균</th>
-                    <td id="hr">{{hr_mean}}</td>
-                </tr>
-                <tr>
-                    <th>호흡수 평균</th>
-                    <td id="rr">{{rr_mean}}</td>
-                </tr>
-                <tr>
-                    <th>심박출량 평균</th>
-                    <td id="sv">{{sv_mean}}</td>
-                </tr>
-                <tr>
-                    <th>심박변이도 평균</th>
-                    <td id="hrv">{{hrv_mean}}</td>
-                </tr>
-            </table>
-          </div>
-        </div>
-        <div class="w-responsivGallery-info">
-          <h2 class="responsivGallery-name">생체 정보 요약</h2>
-          <h3 class="responsivGallery-position"></h3>
-        </div>
-      </li>
-      <li class="responsiveGallery-item"> 
-        <div class="responsivGallery-link">
-          <div class="contents">
-            <h1>2. 심박수</h1>
-            <div class="row"> 
-              <div class="col-md-8">
-                <canvas id="myChart" width="90%" height="40%sour"></canvas>
-              </div>
-              <div class="col-md-4"> 
-                <p>심박수 평균은 ~~~이고
-                  어쩌고 저쩌고 블라블라
-                </p>
-              </div>
+        <div class="voice_guide">
+            <div>
+                <div class="voice_contents">
+                    <img class="icon" src="{% static 'images/voice_icon.png' %}">
+                    <img clas="bar" src="{% static 'images/voice_bar.png' %}">
+                    <p style="font-size: 1.3vw;">지니야, 총 수면 시간 알려줘</p>
+                </div>
             </div>
-          </div>
         </div>
-        <div class="w-responsivGallery-info">
-          <h2 class="responsivGallery-name"> 심박수</h2>
-          <h3 class="responsivGallery-position"></h3>
-        </div>
-      </li>
-      <li class="responsiveGallery-item"> 
-        <div class="responsivGallery-link">
-          <div class="contents">
-            <h1>3. 호흡수</h1>
-          </div>
-        </div>
-        <div class="w-responsivGallery-info">
-          <h2 class="responsivGallery-name">호흡수</h2>
-          <h3 class="responsivGallery-position"></h3>
-        </div>
-      </li>
-    </ul>
-  </section>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script type="text/javascript" src="{% static 'js/modernizr.custom.js' %}"></script>
-<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="{% static 'js/jquery.responsiveGallery.js' %}"></script>
-<script type="text/javascript">
-  $('.responsiveGallery-wrapper').responsiveGallery({
-    animatDuration: 400, 
-    $btn_prev: $('.responsiveGallery-btn_prev'),
-    $btn_next: $('.responsiveGallery-btn_next')
-  });
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36251023-1']);
-  _gaq.push(['_setDomainName', 'jqueryscript.net']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); 
-    ga.type = 'text/javascript'; 
-    ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; 
-    s.parentNode.insertBefore(ga, s);
-  })();
-
-  var ctx = document.getElementById('myChart');
-        var data = {{hr_hour}};
-        var labels = {{hr_labels}};
-        
-        var myLineChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: '심박수',
-                    pointRadius: 0,
-                    fill : 'false',
-                    lineTension: 0,
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: data
-                }]
-            },
-            options: {
-
-            }
+    </div>
+    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/modernizr.custom.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/statistic_sub.js' %}"></script>
+    <script type="text/javascript">
+        $('.contents_wrapper').responsiveGallery({
+            animatDuration: 400, 
+            $btn_prev: $('.btn_prev'),
+            $btn_next: $('.btn_next')
         });
+        google.charts.load("current", {packages:["corechart"]});
+        google.charts.setOnLoadCallback(drawChart);
 
+        function drawChart() {
+          var font_size = screen.width / 100;
+          var data = google.visualization.arrayToDataTable([
+            ['time', 'hr'],
+            ['10',  60],
+            ['11',  70],
+            ['12',  66],
+            ['1',  48],
+            ['2',  50],
+            ['3',  51],
+            ['4',  55],
+            ['5',  47],
+            ['6',  53],
+            ['7',  59],
+            ['8',  66]
+          ]);
 
-</script>
+          var options = {
+            legend: 'none',
+            chartArea: {
+              left: '10%', top: '10%',
+              right: '0%', bottom: '10%',
+              width: '90%',
+              height: '90%',
+            },
+            tooltip: { trigger: 'none'},
+            lineSize: font_size * 0.1,
+            pointShape : 'circle',
+            pointSize: font_size * 0.2,
+            backgroundColor: {
+              fillOpacity: 0
+            },
+            vAxis: {
+              gridlines: { count: 6, color: 'none'},
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              }
+            },
+            hAxis: {
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              },
+            },
+            colors: ['rgb(44, 206, 215)']
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('hrchart'));
+          chart.draw(data, options);
+
+          var data = google.visualization.arrayToDataTable([
+            ['time', 'hr'],
+            ['10',  60],
+            ['11',  70],
+            ['12',  66],
+            ['1',  48],
+            ['2',  50],
+            ['3',  51],
+            ['4',  55],
+            ['5',  47],
+            ['6',  53],
+            ['7',  59],
+            ['8',  66]
+          ]);
+
+          var options = {
+            legend: 'none',
+            chartArea: {
+              left: '10%', top: '10%',
+              right: '0%', bottom: '10%',
+              width: '90%',
+              height: '90%',
+            },
+            tooltip: { trigger: 'none'},
+            lineSize: font_size * 0.1,
+            pointShape : 'circle',
+            pointSize: font_size * 0.2,
+            backgroundColor: {
+              fillOpacity: 0
+            },
+            vAxis: {
+              gridlines: { count: 6, color: 'none'},
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              }
+            },
+            hAxis: {
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              },
+            },
+            colors: ['rgb(187, 131, 231)']
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('rrchart'));
+          chart.draw(data, options);
+  
+
+          var data = google.visualization.arrayToDataTable([
+            ['time', 'hr'],
+            ['10',  60],
+            ['11',  70],
+            ['12',  66],
+            ['1',  48],
+            ['2',  50],
+            ['3',  51],
+            ['4',  55],
+            ['5',  47],
+            ['6',  53],
+            ['7',  59],
+            ['8',  66]
+          ]);
+
+          var options = {
+            legend: 'none',
+            chartArea: {
+              left: '10%', top: '10%',
+              right: '0%', bottom: '10%',
+              width: '90%',
+              height: '90%',
+            },
+            tooltip: { trigger: 'none'},
+            lineSize: font_size * 0.1,
+            pointShape : 'circle',
+            pointSize: font_size * 0.2,
+            backgroundColor: {
+              fillOpacity: 0
+            },
+            vAxis: {
+              gridlines: { count: 6, color: 'none'},
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              }
+            },
+            hAxis: {
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              },
+            },
+            colors: ['rgb(233, 139, 92)']
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('svchart'));
+          chart.draw(data, options);
+  
+
+          var data = google.visualization.arrayToDataTable([
+            ['time', 'hr'],
+            ['10',  60],
+            ['11',  70],
+            ['12',  66],
+            ['1',  48],
+            ['2',  50],
+            ['3',  51],
+            ['4',  55],
+            ['5',  47],
+            ['6',  53],
+            ['7',  59],
+            ['8',  66]
+          ]);
+
+          var options = {
+            legend: 'none',
+            chartArea: {
+              left: '10%', top: '10%',
+              right: '0%', bottom: '10%',
+              width: '90%',
+              height: '90%',
+            },
+            tooltip: { trigger: 'none'},
+            lineSize: font_size * 0.1,
+            pointShape : 'circle',
+            pointSize: font_size * 0.2,
+            backgroundColor: {
+              fillOpacity: 0
+            },
+            vAxis: {
+              gridlines: { count: 6, color: 'none'},
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              }
+            },
+            hAxis: {
+              textStyle: {
+                color: 'rgb(114, 128, 180)',
+                fontSize: 15
+              },
+            },
+            colors: ['rgb(103, 92, 248)']
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('hrvchart'));
+          chart.draw(data, options);
+        }
+    </script>
 </body>
-
 {% endblock %}

@@ -1,5 +1,4 @@
 import numpy as np
-from . import db
 '''
 DB에서 읽어오는걸로 바꿔
 '''

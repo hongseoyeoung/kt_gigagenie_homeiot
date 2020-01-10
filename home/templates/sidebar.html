@@ -2,52 +2,71 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/sidebar.css'%}">
+    <style>
+        .menu_word {
+            font-size: 1.5vw;
+        }
+    </style>
 </head>
 <body style="padding: 8px 15px; overflow: hidden;">
     <div id="sidebar" class="sidebar">
-        <div class="sidebar_title center_align_out">
-            <img class="sidebar_title_img center_align_in" src="{% static 'images/side_title_close.png' %}" alt="" />
+        <div class="sidebar_title">
+            <img class="sidebar_title_img" id="title_img" src="{% static 'images/side_title_close.png' %}" alt="" />
         </div>
         <div>
-            <ul>
-                <li class="ab">
+            <ul class="list">
+                <li class="list_element">
                     <a class="menu" href="{% url 'lastsleep' %}">
                         <div class="menu-in">
-                            <img src="{% static 'images/lastsleep_icon.png' %}" alt="" />
+                            <div class="menu-in-in" style="display: inline-block">
+                                <img class="menu_img" src="{% static 'images/lastsleep_icon.png' %}" alt="" />
+                                <p class="menu_word" id="lastsleep"></p>
+                            </div>
                         </div>
                     </a>
                 </li>
-                <li>
+                <li class="list_element">
                     <a class="menu" href="{% url 'realtime' %}">
                         <div class="menu-in">
-                            <img class="center_align_in" src="{% static 'images/realtime_icon.png' %}" alt="" />
+                            <div class="menu-in-in" style="display: inline-block">
+                                <img class="menu_img" src="{% static 'images/realtime_icon.png' %}" alt="" />
+                                <p class="menu_word" id="realtime"></p>
+                            </div>
                         </div>
                     </a>
                 </li>
-                <li>
+                <li class="list_element">
                     <a class="menu" href="{% url 'statistic' %}">
                         <div class="menu-in">
-                            <img class="center_align_in" src="{% static 'images/statistic_icon.png' %}" alt="" />
+                            <div class="menu-in-in" style="display: inline-block">
+                                <img class="menu_img" src="{% static 'images/statistic_icon.png' %}" alt="" />
+                                <p class="menu_word" id="statistic"></p>
+                            </div>
                         </div>
                     </a>
                 </li>
-                <li>
+                <li class="list_element">
                     <a class="menu" href="{% url 'myinfo' %}">
                         <div class="menu-in">
-                            <img class="center_align_in" src="{% static 'images/myinfo_icon.png' %}" alt="" />
+                            <div class="menu-in-in" style="display: inline-block">
+                                <img class="menu_img" src="{% static 'images/myinfo_icon.png' %}" alt="" />
+                                <p class="menu_word" id="myinfo"></p>
+                            </div>
                         </div>
                     </a>
                 </li>
-                <li>
+                <li class="list_element">
                     <a class="menu" href="{% url 'linked' %}">
                         <div class="menu-in">
-                            <img class="center_align_in" src="{% static 'images/linked_icon.png' %}" alt="" />
+                            <div class="menu-in-in" style="display: inline-block">
+                                <img class="menu_img" src="{% static 'images/linked_icon.png' %}" alt="" />
+                                <p class="menu_word" id="linked"></p>
+                            </div>
                         </div>
                     </a>
                 </li>
             </ul>
         </div>
-        <div id="sidebar-toggle">오픈</div>
     </div>
     
     <div style="padding-left: 10%;">   
@@ -56,31 +75,69 @@
     </div>
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="https://svcapi.gigagenie.ai/sdk/v1.0/js/gigagenie.js"></script>
     <script>
-        $(function(){
-            var duration = 300;
+        var sidebar = document.getElementById("sidebar");
+        var title_img = document.getElementById("title_img");
 
-            var $sidebar = $('.sidebar');
-            var $sidebarButton = $sidebar.find('button').on('click', function(){
-                $sidebar.toggleClass('open');
-                if($sidebar.hasClass('open')){
-                    $sidebar.stop(true).animate({left: '-70px'}, duration, 'easeOutBack');
-                    $sidebarButton.find('span').text("CLOSE");
-                }
-                else {
-                    $sidebar.stop(true).animate({left: '-270px'}, duration, "easeInBack");
-                    $sidebarButton.find('span').text('OPEN');
-                };
-            });
+        $(".menu").focus(function(){
+            title_img.style.width = 60 + '%';
+            sidebar.style.width = 21 + '%';
+            title_img.src = "{% static 'images/side_title_open.png' %}";
+            $('#lastsleep').text("지난 밤 수면 분석");
+            $('#realtime').text("실시간 생체 정보");
+            $('#statistic').text("통계");
+            $('#myinfo').text("내 정보");
+            $('#linked').text("연계 서비스");
+            $('.menu_word').css("padding-left","20px");
+            $('.menu-in-in').css("transform","translate(0,-50%)");
+            $('.menu-in-in').css("left","10%");
         });
 
-        $("#sidebar-toggle").click(function(){
-            $("html").toggleClass("open");
+        $(".menu").blur(function(){
+            title_img.style.width = 70 + '%';
+            sidebar.style.width = 10 + '%';
+            title_img.src = "{% static 'images/side_title_close.png' %}";
+            $('#lastsleep').text("");
+            $('#realtime').text("");
+            $('#statistic').text("");
+            $('#myinfo').text("");
+            $('#linked').text("");
+            $('.menu_word').css("padding-left","0");
+            $('.menu-in-in').css("transform","translate(-50%, -50%)");
+            $('.menu-in-in').css("left","50%");
+        });
+
+        $(".menu").mouseover(function(){
+            title_img.style.width = 60 + '%';
+            sidebar.style.width = 21 + '%';
+            title_img.src = "{% static 'images/side_title_open.png' %}";
+            $('#lastsleep').text("지난 밤 수면 분석");
+            $('#realtime').text("실시간 생체 정보");
+            $('#statistic').text("통계");
+            $('#myinfo').text("내 정보");
+            $('#linked').text("연계 서비스");
+            $('.menu_word').css("padding-left","20px");
+            $('.menu-in-in').css("transform","translate(0,-50%)");
+            $('.menu-in-in').css("left","10%");
+        });
+        
+        $(".menu").mouseout(function(){
+            title_img.style.width = 70 + '%';
+            sidebar.style.width = 10 + '%';
+            title_img.src = "{% static 'images/side_title_close.png' %}";
+            $('#lastsleep').text("");
+            $('#realtime').text(" ");
+            $('#statistic').text("");
+            $('#myinfo').text("");
+            $('#linked').text("");
+            $('.menu_word').css("padding-left","0px");
+            $('.menu-in-in').css("transform","translate(-50%, -50%)");
+            $('.menu-in-in').css("left","50%");
         });
     </script>
 </body>

@@ -146,6 +146,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIR = [
     os.path.join(BASE_DIR, 'home', 'static'),
     os.path.join(BASE_DIR, 'lastsleep', 'static'),
+    os.path.join(BASE_DIR, 'realtime', 'static'),
+    os.path.join(BASE_DIR, 'statistic', 'static'),
+    os.path.join(BASE_DIR, 'linked', 'static'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

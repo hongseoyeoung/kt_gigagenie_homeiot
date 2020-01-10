@@ -1,0 +1,122 @@
+
+.sleep_contents {
+   width: 100%;
+   height: 60%;
+   margin-top: 5%;
+   margin-bottom: 3%;
+   margin-left: 0;
+   margin-right: 0;
+}
+
+.card {
+    padding: 0 0.9%;
+    background-color: rgba(255, 255, 255, 0);
+    outline: 0;
+    border: 0;
+}
+
+.card:hover, .card:focus {
+    border: 0;
+    outline: 0;
+}
+
+.card:hover > .card_contents, .card:focus > .card_contents {
+    box-shadow: 0 0 25px -3px rgb(255, 255, 255);
+    transition: all 0.5s;
+    -webkit-transform:translate3d(0, -5%, 0);
+       -moz-transform:translate3d(0, -5%, 0);
+        -ms-transform:translate3d(0, -5%, 0);
+         -o-transform:translate3d(0, -5%, 0);
+            transform:translate3d(0, -5%, 0);
+}
+
+.card_contents {
+    height: 100%;
+    border-radius: 20px;
+    background-color: rgb(47, 55, 88);
+    padding: 8% 6% 5%;
+}
+
+.card_head {
+    border-bottom: 1px solid rgba(109, 152, 188, 0.3);
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    padding-bottom: 3%;
+}
+.card_title {
+    color: white;
+    float: left;
+    font-size: 3.5vh;
+    margin-bottom: 0;
+}
+
+.view_detail {
+    color: rgb(132, 163, 195);
+    float: right;
+    margin-bottom: 0;
+    font-size: 2.1vh;
+    position: absolute;
+    right: 0;
+    bottom: 25%;
+}
+
+.card_body {
+    margin-top: 5%;
+}
+
+.card_tail {
+    margin-bottom: 3%;
+}
+p {
+    margin-bottom: 0;
+}
+.big_chart {
+    width: 100%;
+    height: 60%;
+}
+
+.chart_element {
+    padding: 0;
+    position: relative;
+}
+
+.col-md-3, .col-md-4, .col-md-6 {
+    text-align: center;
+}
+
+.small_chart {
+    display: inline-block;
+}
+
+
+.big_chart, .small_chart {
+    pointer-events: none;
+}
+
+.value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2vw;
+}
+
+#hrvalue, #totalsleepvalue, #deepsleepvalue, #diabetesvalue {
+    color: rgb(44, 206, 215);
+}
+#rrvalue {
+    color: rgb(187, 131, 231);
+}
+#svvalue,  #arrhythmiavalue {
+    color: rgb(233, 139, 92);
+}
+#hrvvalue, #highbloodvalue {
+    color: rgb(103, 92, 248);
+}
+
+.bcgtext {
+    color: rgb(140, 153, 203);
+    font-size: 1.1vw;
+    white-space: nowrap;
+}

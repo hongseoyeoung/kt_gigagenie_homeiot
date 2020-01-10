@@ -2,10 +2,55 @@
 {% load staticfiles %}
 {% block contents %}
 <head>
-
+    <link rel="stylesheet" href="{% static 'css/statistic.css'%}">
+    <style>
+        
+    </style>
 </head>
-<body>
-
+<body style="padding: 8px 15px;">
+    <div class="container-fluid">
+        <div class="headline">
+            <a class="back" href="{% url 'home' %}">
+                <img src="{% static 'images/back.png' %}">
+            </a>
+            <p class="headline_title">통계 관리</p>
+        </div>
+        <div class="row contents">
+            <a class="col-md-4 card" href="{% url 'statistic_bio' %}">
+                <div class="card_contents">
+                    <div style="height: 70%;">
+                        <img src="{% static 'images/bio.png' %}" style="width:65%">
+                    </div>
+                    <p class="subtitle">생체 정보</p>
+                </div>
+            </a>
+            <a class="col-md-4 card" href="{% url 'statistic_sleep' %}">
+                <div class="card_contents">
+                    <div style="height: 70%;">
+                        <img src="{% static 'images/sleep.png' %}" style="width:55%">
+                    </div>
+                    <p class="subtitle">수면 분석</p>
+                </div>
+            </a>
+            <a class="col-md-4 card" href="{% url 'statistic_disease' %}">
+                <div class="card_contents">
+                    <div style="height: 70%;">
+                        <img src="{% static 'images/disease.png' %}" style="width:40%">
+                    </div>
+                    <p class="subtitle">질병 예측</p>
+                </div>
+            </a>
+        </div>
+        <div class="voice_guide">
+            <div>
+                <div class="voice_contents">
+                    <img class="icon" src="{% static 'images/voice_icon.png' %}">
+                    <img clas="bar" src="{% static 'images/voice_bar.png' %}">
+                    <p style="font-size: 1.3vw;">지니야, 총 수면 시간 알려줘</p>
+                </div>
+            </div>
+        </div>
+    </div>  
 </body>
 {% endblock %}
 

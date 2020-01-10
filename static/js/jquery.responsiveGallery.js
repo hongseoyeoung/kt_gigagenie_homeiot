@@ -11,9 +11,10 @@
 			$rgWrapper = this,
 			$rgItems = $rgWrapper.find('li'), //.responsiveGallery-item
 			rgItemsLength = $rgItems.length,
-			support3d = Modernizr.csstransforms3d,
+			support3d = Modernizr.csstransforms3d, 
 			support2d = Modernizr.csstransforms,
 			rgCurrentIndex = 0;
+
 			rgShowCount = 5,
 			rgTansCSS = [],
 			animatDuration = opts.animatDuration,
@@ -62,94 +63,35 @@
 			}
 		}
 
-		function getTransform7CSS(){
-			var cssArray;
-
-			if(support3d){
-				cssArray = [
-					getTransform3dCSS('-100%',	-400,	40,		-1,	0,	'hidden'),
-					getTransform3dCSS('0',		-350,	45,		-1,	1,	'visible'),
-
-					getTransform3dCSS('100%', 	-300, 	45,		0,	1,	'visible'),
-					getTransform3dCSS('200%', 	-200, 	40,		1,	1,	'visible'),
-					getTransform3dCSS('300%', 	0, 		0,		2,	1,	'visible'),
-					getTransform3dCSS('400%', 	-200, 	-40,	1,	1,	'visible'),
-					getTransform3dCSS('500%', 	-300, 	-45,	0,	1,	'visible'),
-
-					getTransform3dCSS('600%', 	-350, 	-45,	-1,	1,	'visible'),
-					getTransform3dCSS('700%', 	-400, 	-40,	-1,	0,	'hidden')
-				];
-			} else if(support2d){
-				cssArray = [
-					getTransform2dCSS('-100%',	0.6,	'100%',		'50%',	0,	'hidden'),
-					getTransform2dCSS('0',		0.6,	'100%',		'50%',	1,	'visible'),
-
-					getTransform2dCSS('100%', 	0.7,	'100%',		'50%',	1,	'visible'),
-					getTransform2dCSS('200%', 	0.8,	'50%',		'50%',	1,	'visible'),
-					getTransform2dCSS('300%', 	1,		'50%',		'50%',	1,	'visible'),
-					getTransform2dCSS('400%', 	0.8,	'50%',		'50%',	1,	'visible'),
-					getTransform2dCSS('500%', 	0.7,	'0%',		'50%',	1,	'visible'),
-
-					getTransform2dCSS('600%', 	0.6,	'0%',		'50%',	1,	'visible'),
-					getTransform2dCSS('700%', 	0.6,	'0%',		'50%',	0,	'hidden')
-				];
-			}
-
-			return cssArray;
-		}
-
-		function getTransform5CSS(){
-			var cssArray;
-
-			if(support3d){
-				cssArray = [
-					getTransform3dCSS('-100%',	-400, 	45,		-1,	0,	'hidden'),
-
-					getTransform3dCSS('0', 		-300, 	45,		0,	1,	'visible'),
-					getTransform3dCSS('100%', 	-200, 	45,		1,	1,	'visible'),
-					getTransform3dCSS('200%', 	0, 		0,		2,	1,	'visible'),
-					getTransform3dCSS('300%', 	-200, 	-45,	1,	1,	'visible'),
-					getTransform3dCSS('400%', 	-300, 	-45,	0,	1,	'visible'),
-
-					getTransform3dCSS('500%', 	-400, 	-45,	-1,	0,	'hidden')
-				];
-			} else if(support2d){
-				cssArray = [
-					getTransform2dCSS('-100%',	0.6,	'100%',		'50%',	0,	'hidden'),
-
-					getTransform2dCSS('0', 		0.7,	'100%',		'50%',	1,	'visible'),
-					getTransform2dCSS('100%', 	0.8,	'50%',		'50%',	1,	'visible'),
-					getTransform2dCSS('200%', 	1,		'50%',		'50%',	1,	'visible'),
-					getTransform2dCSS('300%', 	0.8,	'50%',		'50%',	1,	'visible'),
-					getTransform2dCSS('400%', 	0.7,	'0%',		'50%',	1,	'visible'),
-
-					getTransform2dCSS('500%', 	0.6,	'0%',		'50%',	0,	'hidden')
-				];
-			}
-
-			return cssArray;
-		}
-
 		function getTransform3CSS(){
 			var cssArray;
 
 			if(support3d){
 				cssArray = [
-					getTransform3dCSS('-100%',	-400, 	45,		0,	0,	'hidden'),
+					// getTransform3dCSS('-100%',	-400, 	45,		0,	0,	'hidden'),
 
-					getTransform3dCSS('0', 		-300, 	45,		1,	1,	'visible'),
-					getTransform3dCSS('100%', 	0, 		0,		2,	1,	'visible'),
-					getTransform3dCSS('200%', 	-300, 	-45,	1,	1,	'visible'),
+					// getTransform3dCSS('-27.5%', -300, 	45,		1,	1,	'visible'),
+					// getTransform3dCSS('12.5%', 	0, 		0,		2,	1,	'visible'),
+					// getTransform3dCSS('62.5%', 	-300, 	-45,	1,	1,	'visible'),
 
-					getTransform3dCSS('300%', 	-400, 	-45,	0,	0,	'hidden')
+					// getTransform3dCSS('300%', 	-400, 	-45,	0,	0,	'hidden')
+					getTransform3dCSS('0%',		-400, 	0,		-1,	0,	'hidden'),
+
+					getTransform3dCSS('-37.5%',	-500, 	5,		0,	1,	'visible'),
+					getTransform3dCSS('-12.5%',	-200, 	5,		1,	1,	'visible'),
+					getTransform3dCSS('12.5%', 	0, 		0,		2,	1,	'visible'),
+					getTransform3dCSS('37.5%', 	-200, 	-5,		1,	1,	'visible'),
+					getTransform3dCSS('62.5%', 	-500, 	-5,		0,	1,	'visible'),
+
+					getTransform3dCSS('160%', 	-400, 	0,		-1,	0,	'hidden')
 				];
 			} else if(support2d){
 				cssArray = [
 					getTransform2dCSS('-100%',	0.65,	'100%',		'50%',	0,	'hidden'),
 
-					getTransform2dCSS('0', 		0.8,	'50%',		'50%',	1,	'visible'),
-					getTransform2dCSS('100%', 	1,		'50%',		'50%',	1,	'visible'),
-					getTransform2dCSS('200%', 	0.8,	'50%',		'50%',	1,	'visible'),
+					getTransform2dCSS('37.5%',	0.8,	'50%',		'50%',	1,	'visible'),
+					getTransform2dCSS('12.5%', 	1,		'50%',		'50%',	1,	'visible'),
+					getTransform2dCSS('62.5%', 	0.8,	'50%',		'50%',	1,	'visible'),
 
 					getTransform2dCSS('300%', 	0.65,	'0%',		'50%',	0,	'hidden')
 				];
@@ -158,29 +100,6 @@
 			return cssArray;
 		}
 
-		function getTransform1CSS(){
-			var cssArray;
-
-			if(support3d){
-				cssArray = [
-					getTransform3dCSS('-100%',	-300, 	45,		0,	0,	'hidden'),
-
-					getTransform3dCSS('0%', 	0, 		0,		2,	1,	'visible'),
-
-					getTransform3dCSS('100%', 	-300, 	-45,	0,	0,	'hidden')
-				];
-			} else if(support2d){
-				cssArray = [
-					getTransform2dCSS('-100%',	0.65,	'100%',		'50%',	0,	'hidden'),
-
-					getTransform2dCSS('0', 	1,		'50%',		'50%',	1,	'visible'),
-
-					getTransform2dCSS('100%', 	0.65,	'0%',		'50%',	0,	'hidden')
-				];
-			}
-
-			return cssArray;
-		}
 		function setSectionItems(fun){
 			var $items = [];
 
@@ -242,22 +161,10 @@
 		$(window).on('resize', function(e){
 			$rgItems.removeAttr('style'); //清除样式，否则在resize的时候不能正常取到下列元素的width
 
-			var wrapperWidth = $rgWrapper.width(),
-				itemWidth = $rgItems.eq(0).width();
 
-			rgShowCount = Math.round(wrapperWidth/itemWidth);
-			
-			if(rgShowCount === 1){ //显示1个
-				rgTansCSS = getTransform1CSS();
-			} else if(rgShowCount === 3){ //显示3个
-				rgTansCSS = getTransform3CSS();
-			} else if(rgShowCount === 5){ //显示5个
-				rgTansCSS = getTransform5CSS();
-			} else if(rgShowCount === 7){
-				rgTansCSS = getTransform7CSS();
-			} else {
-				return;
-			}
+			rgShowCount = 5;
+			rgTansCSS = getTransform3CSS();
+
 
 			rgCurrentIndex = 0;
 			moveGallery(0);

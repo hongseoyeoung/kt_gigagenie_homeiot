@@ -131,7 +131,7 @@
 
 			setTimeout(function(){
 				isAnimating = false;
-			},animatDuration); //防止连击
+			},animatDuration); 
 		}
 
 		opts.$btn_next.on('click',function(e){
@@ -159,8 +159,7 @@
 
 		});
 		$(window).on('resize', function(e){
-			$rgItems.removeAttr('style'); //清除样式，否则在resize的时候不能正常取到下列元素的width
-
+			$rgItems.removeAttr('style');
 
 			rgShowCount = 5;
 			rgTansCSS = getTransform3CSS();
@@ -170,15 +169,15 @@
 			moveGallery(0);
 			setTimeout(function(){
 				$rgItems.css(getTransitionCSS(animatDuration/1000, 'ease-in-out'));
-			},10); //等初始位置设置好后再添加动画
+			},10); 
 
 		}).trigger('resize');
 
-		//链式返回
+
 		return this;
     };
     $.fn.responsiveGallery.defaults = {
-		animatDuration: 400, //动画时长 单位 ms
+		animatDuration: 400, 
 		$btn_prev: $('.responsiveGallery-btn_prev'),
 		$btn_next: $('.responsiveGallery-btn_next')
     };

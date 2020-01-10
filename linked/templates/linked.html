@@ -1,1 +1,45 @@
-<h1>연계관리</h1>
+{% extends 'sidebar.html' %}
+{% load staticfiles %}
+{% block contents %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/linked.css'%}">
+    <style>
+        
+    </style>
+</head>
+<body style="padding: 8px 15px;">
+    <div class="container-fluid">
+        <div class="headline">
+            <a class="back" href="{% url 'home' %}">
+                <img src="{% static 'images/back.png' %}">
+            </a>
+            <p class="headline_title">연계 서비스</p>
+        </div>
+        <div class="row contents">
+            <a class="col-md-4 card" href="{% url 'linked_exercise' %}">
+                <img src="{% static 'images/exercise.png' %}" alt="" />
+                <p class="subtitle">운동</p>
+            </a>
+            <a class="col-md-4 card" href="{% url 'linked_music' %}">
+                <img src="{% static 'images/music.png' %}" alt="" />
+                <p class="subtitle">음악</p>
+            </a>
+            <a class="col-md-4 card" href="{% url 'linked_food' %}">
+                <img src="{% static 'images/food.png' %}" alt="" />
+                <p class="subtitle">음식</p>
+            </a>
+        </div>
+        <div class="voice_guide">
+            <div>
+                <div class="voice_contents">
+                    <img class="icon" src="{% static 'images/voice_icon.png' %}">
+                    <img clas="bar" src="{% static 'images/voice_bar.png' %}">
+                    <p style="font-size: 1.3vw;">지니야, 총 수면 시간 알려줘</p>
+                </div>
+            </div>
+        </div>
+    </div>  
+</body>
+{% endblock %}
+
+
